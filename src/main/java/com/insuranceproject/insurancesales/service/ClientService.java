@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ClientService {
@@ -28,7 +30,17 @@ public class ClientService {
         return clientDAO.selectAllClients();
     }
 
+    public Optional<Client> getClientById(UUID id){
+        return clientDAO.selectClientByID(id);
+    }
 
+    public int deleteClient(UUID id){
+        return clientDAO.deleteClientByID(id);
+    }
+
+    public int updateClient(UUID id, Client client){
+        return clientDAO.updateClientById(id, client);
+    }
 
 
 }

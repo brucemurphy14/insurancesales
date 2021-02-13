@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("api/client")
 @RestController
@@ -27,5 +28,20 @@ public class ClientController {
     public List<Client> selectAllClients(){
 
         return clientService.getAllClients();
+    }
+    @GetMapping(path = "{id}")
+    public Client getClientByID(@PathVariable("id") UUID id){
+        return clientService.getClientById(id)
+                .orElse(null);
+    }
+
+    @DeleteMapping(path = {"id"})
+    public void deleteClientById(@PathVariable("id") UUID id){
+        clientService.deleteClient(id);
+    }
+
+    @PutMapping(path = "{id}")
+    public void updateClient(@PathVariable("id") UUID id , @RequestBody Client clientToUpdate) {
+        clientService.updateClient(id, clientToUpdate);
     }
 }
