@@ -5,13 +5,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
-
-
 
 /**
  * This class implements the behaviour of the ClientDAO interface.
@@ -40,7 +36,6 @@ public class ClientJDBCDAO implements DAO<Client> {
     @Override
     public List<Client> list() {
         String sql = "SELECT client_id, main_insured_name, home_policy_number, auto_policy_number, address FROM client";
-
         return jdbcTemplate.query(sql,rowMapper);
 
     }
