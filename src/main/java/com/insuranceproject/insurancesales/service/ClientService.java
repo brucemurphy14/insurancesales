@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * This class is the service tier that performs the operations on the objects in the client table.
+ */
 @Service
 public class ClientService {
 
@@ -22,9 +25,7 @@ public class ClientService {
 
     public int addClient(Client client){
         return clientDAO.insertClient(client);
-
     }
-
 
     public List<Client> getAllClients(){
         return clientDAO.selectAllClients();

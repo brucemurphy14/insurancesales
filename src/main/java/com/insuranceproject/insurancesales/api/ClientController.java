@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * This class exposes the client objects to the REST API.
+ */
+
 @RequestMapping("api/client")
 @RestController
 public class ClientController {
@@ -35,8 +39,8 @@ public class ClientController {
                 .orElse(null);
     }
 
-    @DeleteMapping(path = {"id"})
-    public void deleteClientById(@PathVariable("id") UUID id){
+    @DeleteMapping(path = "{id}")
+    public void deleteClientByID(@PathVariable("id") UUID id){
         clientService.deleteClient(id);
     }
 

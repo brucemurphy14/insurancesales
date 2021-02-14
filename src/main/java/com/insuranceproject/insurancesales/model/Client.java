@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
+/**
+ * A class that represents the client table.
+ */
+
+//TODO : Implement controller, DAO interface and data access service
+
 public class Client {
 
     private UUID client_id;
@@ -41,10 +47,6 @@ public class Client {
         this.address = address;
     }
 
-
-
-
-
     public UUID getClient_id() {
         return client_id;
     }
@@ -58,13 +60,7 @@ public class Client {
         this.main_insured_name = main_insured_name;
     }
 
-
-
-
-
-
     public String getMain_insured_name() {
         return this.main_insured_name;
     }
-
 }

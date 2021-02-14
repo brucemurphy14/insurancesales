@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * This class implements the behaviour of the ClientDAO interface.
+ */
 @Repository("fakeDAO")
 public class FakeClientDataAccessService  implements ClientDAO {
-
     private static List<Client> DB = new ArrayList<>();
-
 
     @Override
     public List<Client> selectAllClients() {
@@ -31,7 +32,6 @@ public class FakeClientDataAccessService  implements ClientDAO {
 
     @Override
     public int updateClientById(UUID id, Client updatedClient) {
-
         return selectClientByID(id)
                 .map(client -> {
                     int indexOfClientToUpdate = DB.indexOf(client);
@@ -57,5 +57,4 @@ public class FakeClientDataAccessService  implements ClientDAO {
         DB.add(new Client(client_id, client.getMain_insured_name()));
         return 1;
     }
-
 }
