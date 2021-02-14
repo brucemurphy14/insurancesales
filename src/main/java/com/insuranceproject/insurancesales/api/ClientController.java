@@ -23,11 +23,16 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+
+    /*
     @PostMapping
     public void addClient(@RequestBody Client client){
         clientService.addClient(client);
     }
 
+*/
+
+    /*
     @GetMapping
     public List<Client> selectAllClients(){
 
@@ -39,6 +44,9 @@ public class ClientController {
                 .orElse(null);
     }
 
+     */
+
+    /*
     @DeleteMapping(path = "{id}")
     public void deleteClientByID(@PathVariable("id") UUID id){
         clientService.deleteClient(id);
@@ -48,4 +56,6 @@ public class ClientController {
     public void updateClient(@PathVariable("id") UUID id , @RequestBody Client clientToUpdate) {
         clientService.updateClient(id, clientToUpdate);
     }
+
+     */
 }

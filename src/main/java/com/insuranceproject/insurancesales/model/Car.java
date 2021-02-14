@@ -1,5 +1,8 @@
 package com.insuranceproject.insurancesales.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
 import java.util.UUID;
 
 /**
@@ -8,7 +11,9 @@ import java.util.UUID;
 
 //TODO : Implement controller, DAO interface and data access service
 
+@Table("car")
 public class Car {
+    @Id
     private int policy_number;
     private UUID client_id;
     private String vehicle_make;
