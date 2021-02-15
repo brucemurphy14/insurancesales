@@ -1,5 +1,5 @@
 CREATE TABLE Client (
-                        client_id int NOT NULL,
+                        client_id int NOT NULL AUTO_INCREMENT,
                         main_insured_name VARCHAR(32),
                         home_policy_number int ,
                         auto_policy_number int,
@@ -8,7 +8,7 @@ CREATE TABLE Client (
 );
 
 CREATE TABLE Home_Policy (
-                             policy_number int NOT NULL,
+                             policy_number int NOT NULL AUTO_INCREMENT,
                              client_id int NOT NULL,
                              main_insured_name VARCHAR(32),
                              other_insured_names VARCHAR(150),
@@ -28,7 +28,7 @@ CREATE TABLE Home_Policy (
 );
 
 CREATE TABLE Auto_Policy (
-                             policy_number int NOT NULL,
+                             policy_number int NOT NULL AUTO_INCREMENT,
                              client_id int NOT NULL,
                              main_insured_name VARCHAR(32),
                              start_date DATE,
@@ -46,7 +46,7 @@ CREATE TABLE Auto_Policy (
 
 
 CREATE TABLE Home (
-                      policy_number int NOT NULL,
+                      policy_number int NOT NULL AUTO_INCREMENT,
                       age_since_built float(2),
                       type_of_dwelling varchar(20),
                       heating_type varchar(17),
@@ -57,7 +57,7 @@ CREATE TABLE Home (
 
 
 CREATE TABLE Car (
-                     policy_number int NOT NULL,
+                     policy_number int NOT NULL AUTO_INCREMENT,
                      vehicle_make varchar(32),
                      vehicle_model varchar(32),
                      vehicle_year int,

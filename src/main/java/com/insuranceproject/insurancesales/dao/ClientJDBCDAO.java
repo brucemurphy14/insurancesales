@@ -10,14 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * This class implements the behaviour of the ClientDAO interface.
+ * This class implements the behaviour of the DAO interface for Client objects.
  */
 
 @Component
 public class ClientJDBCDAO implements DAO<Client> {
 
     private JdbcTemplate jdbcTemplate;
-
 
     RowMapper<Client> rowMapper = (rs, rowNum) -> {
         Client client = new Client();
@@ -37,7 +36,6 @@ public class ClientJDBCDAO implements DAO<Client> {
     public List<Client> list() {
         String sql = "SELECT client_id, main_insured_name, home_policy_number, auto_policy_number, address FROM client";
         return jdbcTemplate.query(sql,rowMapper);
-
     }
 
     @Override
@@ -56,14 +54,13 @@ public class ClientJDBCDAO implements DAO<Client> {
         catch (DataAccessException ex){
             //TO: meaningful errors
         }
-
         return Optional.ofNullable(client);
     }
 
     @Override
     public void update(Client client, int ID) {
         String sql = "update client set main_insured_name =  ?, home_policy_number = ?, auto_policy_number = ?,address = ? WHERE client_id = ?";
-        int update = jdbcTemplate.update(sql,client.getMain_insured_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress());
+        jdbcTemplate.update(sql,client.getMain_insured_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress());
     }
 
     @Override

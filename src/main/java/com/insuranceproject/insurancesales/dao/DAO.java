@@ -1,13 +1,10 @@
 package com.insuranceproject.insurancesales.dao;
 
-import com.insuranceproject.insurancesales.model.Client;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
- * This interface shows the required behaviour for the client API.
+ * This interface shows the required behaviour for the objects in the relational model.
  */
 public interface DAO<T> {
     List<T> list() ;
