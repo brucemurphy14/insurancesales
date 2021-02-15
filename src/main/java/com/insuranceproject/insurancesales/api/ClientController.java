@@ -46,5 +46,4 @@ public class ClientController {
     public void updateClient(@PathVariable("id") int id , @RequestBody Client clientToUpdate) {
         clientDAO.update(clientToUpdate, id );
     }
-
 }

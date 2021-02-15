@@ -12,8 +12,6 @@ public class Home_Policy {
 
     private int policy_number;
     private int client_id;
-
-
     private String main_insured_name;
     private String other_insured_names;
     private Date start_date;
