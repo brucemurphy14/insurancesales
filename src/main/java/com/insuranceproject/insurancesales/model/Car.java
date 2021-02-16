@@ -1,5 +1,4 @@
 package com.insuranceproject.insurancesales.model;
-
 import java.util.UUID;
 
 /**
@@ -7,10 +6,10 @@ import java.util.UUID;
  */
 
 //TODO : Implement controller, DAO interface and data access service
-
 public class Car {
+
     private int policy_number;
-    private UUID client_id;
+    private int client_id;
     private String vehicle_make;
     private String vehicle_model;
     private int vehicle_year;
@@ -23,11 +22,11 @@ public class Car {
         this.policy_number = policy_number;
     }
 
-    public UUID getClient_id() {
+    public int getClient_id() {
         return client_id;
     }
 
-    public void setClient_id(UUID client_id) {
+    public void setClient_id(int client_id) {
         this.client_id = client_id;
     }
 
