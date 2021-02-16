@@ -1,8 +1,5 @@
 package com.insuranceproject.insurancesales.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.UUID;
 
 /**
  * A class that represents the client table.

@@ -22,7 +22,6 @@ public class ClientJDBCDAO implements DAO<Client> {
         Client client = new Client();
         client.setClient_id(rs.getInt("Client_ID"));
         client.setMain_insured_name(rs.getString("main_insured_name"));
-        client.setHome_policy_number(rs.getInt("home_policy_number"));
         client.setAuto_policy_number(rs.getInt("auto_policy_number"));
         client.setAddress(rs.getString("address"));
         return client;

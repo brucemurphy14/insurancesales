@@ -1,6 +1,8 @@
 package com.insuranceproject.insurancesales.dao;
 
+import com.insuranceproject.insurancesales.model.Auto_Policy;
 import com.insuranceproject.insurancesales.model.Home_Policy;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -31,26 +33,59 @@ public class Home_PolicyJDBCDAO implements DAO<Home_Policy> {
 
     @Override
     public List<Home_Policy> list() {
-        return null;
+        String sql = "SELECT policy_number, client_id, main_insured_name,start_date, end_date, base_premium< tax, total_premium" +
+                ", replacement_cost_value, injury_liability_limit, injury_deductible, contents_liability_limit, contents_deductible FROM Home_policy";
+        return jdbcTemplate.query(sql,rowMapper);
+
     }
 
     @Override
     public void create(Home_Policy home_policy) {
+        String sql = "Insert into Home_policy(client_id, main_insured_name,start_date, end_date, base_premium, tax, total_premium" +
+                ", replacement_cost_value, injury_liability_limit, injury_deductible, contents_liability_limit, contents_deductible)" +
+                 " values(?,?,?,?,?,?,?,?,?,?,?,?)";
 
+        jdbcTemplate.update(sql,home_policy.getClient_id(), home_policy.getMain_insured_name(), home_policy.getStart_date(), home_policy.getEnd_date(),
+                home_policy.getBase_premium(), home_policy.getTax(), home_policy.getTotal_premium(), home_policy.getReplacement_cost_value(),
+                home_policy.getInjury_liability_limit(), home_policy.getInjury_deductible(), home_policy.getContents_liability_limit(),
+                home_policy.getContents_deductible());
     }
 
     @Override
     public Optional<Home_Policy> get(int id) {
-        return Optional.empty();
+
+        String sql = "SELECT policy_number, client_id, main_insured_name,start_date, end_date, base_premium, tax, total_premium" +
+        ", replacement_cost_value, injury_liability_limit, injury_deductible, contents_liability_limit, contents_deductible FROM Home_policy " +
+                "where policy_number = ?";
+
+        Home_Policy home_policy = null;
+        try {
+        //    home_policy = jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
+            home_policy = jdbcTemplate.queryForObject(sql,rowMapper, id);
+
+        }
+        catch (DataAccessException ex){
+            //TO: meaningful errors
+        }
+        return Optional.ofNullable(home_policy);
+
     }
 
     @Override
-    public void update(Home_Policy object, int ID) {
+    public void update(Home_Policy home_policy, int ID) {
+
+        String sql = "update home_policy set client_id = ?, main_insured_name = ?, start_date = ?, end_date = ?, base_premium = ?, tax = ?, total_premium = ?," +
+                " replacement_cost_value = ?, injury_liability_limit = ?, injury_deductible = ?, contents_liability_limit = ?, contents_deductible= ? where policy_number = ?";
+
+
+        jdbcTemplate.update(sql,home_policy.getClient_id(), home_policy.getMain_insured_name(), home_policy.getStart_date(), home_policy.getEnd_date(), home_policy.getBase_premium(), home_policy.getTax(),
+                home_policy.getTotal_premium(), home_policy.getReplacement_cost_value(), home_policy.getInjury_liability_limit(), home_policy.getInjury_deductible(), home_policy.getContents_liability_limit(),
+                home_policy.getContents_deductible());
 
     }
 
     @Override
     public void delete(int id) {
-
+        jdbcTemplate.update("delete from home_policy where policy_number = ?", id);
     }
 }

@@ -1,7 +1,5 @@
 package com.insuranceproject.insurancesales.model;
 
-import java.sql.Date;
-import java.util.UUID;
 
 /**
  * a class that represents the Home table.
