@@ -1,14 +1,15 @@
 package com.insuranceproject.insurancesales.dao;
 
 import com.insuranceproject.insurancesales.model.Car;
-import com.insuranceproject.insurancesales.model.Client;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class CarJDBCDAO implements DAO<Car>{
 
 
@@ -39,7 +40,7 @@ public class CarJDBCDAO implements DAO<Car>{
     }
 
     @Override
-    public void create(Car car) {
+    public  void create(Car car) {
         String sql = "insert into CAR(vehicle_make, vehicle_model, vehicle_year) values (?,?,?)";
         jdbcTemplate.update(sql, car.getVehicle_make(), car.getVehicle_model(), car.getVehicle_year());
 
@@ -60,10 +61,8 @@ public class CarJDBCDAO implements DAO<Car>{
 
     @Override
     public void update(Car car, int ID) {
-
         String sql = "update car set vehicle_make =  ?, vehicle_model = ?, vehicle_year = ? WHERE policy_number = ?";
         jdbcTemplate.update(sql,car.getVehicle_make(), car.getVehicle_model(), car.getVehicle_year());
-
     }
 
     @Override
