@@ -1,14 +1,15 @@
 package com.insuranceproject.insurancesales.dao;
 
 import com.insuranceproject.insurancesales.model.Auto_Policy;
-import com.insuranceproject.insurancesales.model.Client;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-//TODO implement interface methods
+
+@Component
 public class Auto_PolicyJDbcdao implements DAO<Auto_Policy> {
 
     private JdbcTemplate jdbcTemplate;
