@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Component
 public class ClientJDBCDAO implements DAO<Client> {
-//TODO implement interface methods similar to this one in other DAO's
+
     private JdbcTemplate jdbcTemplate;
 
     RowMapper<Client> rowMapper = (rs, rowNum) -> {
