@@ -10,22 +10,44 @@ package com.insuranceproject.insurancesales.model;
 public class Client {
 
     private int client_id;
-    private String main_insured_name;
+    private String main_insured_first_name;
+    private String main_insured_last_name;
+    private int user_id;
     private int home_policy_number;
     private int auto_policy_number;
-    private String address;
+    private int address_id;
 
-    public Client() {
+    public int getUser_id() {
+        return user_id;
     }
 
-    public Client(String main_insured_name, int home_policy_number, int auto_policy_number, String address) {
-        this.main_insured_name = main_insured_name;
-        this.home_policy_number = home_policy_number;
-        this.auto_policy_number = auto_policy_number;
-        this.address = address;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
-    public void setMain_insured_name(String main_insured_name) {
-        this.main_insured_name = main_insured_name;
+
+
+    public int getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(int client_id) {
+        this.client_id = client_id;
+    }
+
+    public String getMain_insured_first_name() {
+        return main_insured_first_name;
+    }
+
+    public void setMain_insured_first_name(String main_insured_first_name) {
+        this.main_insured_first_name = main_insured_first_name;
+    }
+
+    public String getMain_insured_last_name() {
+        return main_insured_last_name;
+    }
+
+    public void setMain_insured_last_name(String main_insured_last_name) {
+        this.main_insured_last_name = main_insured_last_name;
     }
 
     public int getHome_policy_number() {
@@ -44,35 +66,11 @@ public class Client {
         this.auto_policy_number = auto_policy_number;
     }
 
-    public String getAddress() {
-        return address;
+    public int getAddress_id() {
+        return address_id;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getClient_id() {
-        return this.client_id;
-    }
-
-    public void setClient_id(int client_id) {
-        this.client_id = client_id;
-    }
-
-    public String getMain_insured_name() {
-        return this.main_insured_name;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "client_id=" + client_id +
-                ", main_insured_name='" + main_insured_name + '\'' +
-                ", home_policy_number=" + home_policy_number +
-                ", auto_policy_number=" + auto_policy_number +
-                ", address='" + address + '\'' +
-                '}';
+    public void setAddress_id(int address_id) {
+        this.address_id = address_id;
     }
 }

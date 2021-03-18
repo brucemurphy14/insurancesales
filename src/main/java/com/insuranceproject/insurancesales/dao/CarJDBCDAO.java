@@ -14,28 +14,25 @@ public class CarJDBCDAO implements DAO<Car>{
 
 
     //TODO implement interface methods
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     RowMapper<Car> rowMapper = (rs, rowNum) -> {
         Car car = new Car();
-        car.setClient_id(rs.getInt("Client_ID"));
+        car.setVin_number(rs.getInt("VIN_NUMBER"));
+        car.setPolicy_number(rs.getInt("policy_number"));
         car.setVehicle_make(rs.getString("vehicle_make"));
         car.setVehicle_model(rs.getString("vehicle_model"));
         car.setVehicle_year(rs.getInt("vehicle_year"));
         return car;
     };
 
-
     public CarJDBCDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
-
-
     @Override
     public List<Car> list() {
-        String sql = "SELECT policy_number, vehicle_make, vehicle_model, vehicle_year FROM car";
+        String sql = "SELECT VIN_NUMBER, policy_number, vehicle_make, vehicle_model, vehicle_year FROM car";
         return jdbcTemplate.query(sql,rowMapper);
     }
 
@@ -48,7 +45,7 @@ public class CarJDBCDAO implements DAO<Car>{
 
     @Override
     public Optional<Car> get(int id) {
-        String sql = "Select policy_number, vehicle_make, vehicle_model, vehicle_year FROM car WHERE policy_number = ?";
+        String sql = "Select VIN_NUMBER, policy_number, vehicle_make, vehicle_model, vehicle_year FROM car WHERE policy_number = ?";
         Car car = null;
         try {
             car = jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
@@ -61,7 +58,7 @@ public class CarJDBCDAO implements DAO<Car>{
 
     @Override
     public void update(Car car, int ID) {
-        String sql = "update car set vehicle_make =  ?, vehicle_model = ?, vehicle_year = ? WHERE policy_number = ?";
+        String sql = "update car set vehicle_make =  ?, vehicle_model = ?, vehicle_year = ? WHERE VIN_NUMBER = ?";
         jdbcTemplate.update(sql,car.getVehicle_make(), car.getVehicle_model(), car.getVehicle_year());
     }
 

@@ -9,23 +9,19 @@ package com.insuranceproject.insurancesales.model;
 
 public class Home {
 
+    private int Home_id;
     private int policy_number;
-    private int client_id;
     private int age_since_built;
     private String type_of_dwelling;
     private String heating_type;
 
 
-    public Home(int policy_number, int client_id, int age_since_built, String type_of_dwelling, String heating_type) {
-        this.policy_number = policy_number;
-        this.client_id = client_id;
-        this.age_since_built = age_since_built;
-        this.type_of_dwelling = type_of_dwelling;
-        this.heating_type = heating_type;
+    public int getHome_id() {
+        return Home_id;
     }
 
-    public Home(){
-
+    public void setHome_id(int home_id) {
+        Home_id = home_id;
     }
 
     public int getPolicy_number() {
@@ -34,14 +30,6 @@ public class Home {
 
     public void setPolicy_number(int policy_number) {
         this.policy_number = policy_number;
-    }
-
-    public int getClient_id() {
-        return client_id;
-    }
-
-    public void setClient_id(int client_id) {
-        this.client_id = client_id;
     }
 
     public int getAge_since_built() {
@@ -68,14 +56,5 @@ public class Home {
         this.heating_type = heating_type;
     }
 
-    @Override
-    public String toString() {
-        return "Home{" +
-                "policy_number=" + policy_number +
-                ", client_id=" + client_id +
-                ", age_since_built=" + age_since_built +
-                ", type_of_dwelling='" + type_of_dwelling + '\'' +
-                ", heating_type='" + heating_type + '\'' +
-                '}';
-    }
+
 }

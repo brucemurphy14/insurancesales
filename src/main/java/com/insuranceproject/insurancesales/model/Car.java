@@ -8,11 +8,19 @@ import java.util.UUID;
 //TODO : Implement controller, DAO interface and data access service
 public class Car {
 
+    private int vin_number;
     private int policy_number;
-    private int client_id;
     private String vehicle_make;
     private String vehicle_model;
     private int vehicle_year;
+
+    public int getVin_number() {
+        return vin_number;
+    }
+
+    public void setVin_number(int vin_number) {
+        this.vin_number = vin_number;
+    }
 
     public int getPolicy_number() {
         return policy_number;
@@ -22,13 +30,7 @@ public class Car {
         this.policy_number = policy_number;
     }
 
-    public int getClient_id() {
-        return client_id;
-    }
 
-    public void setClient_id(int client_id) {
-        this.client_id = client_id;
-    }
 
     public String getVehicle_make() {
         return vehicle_make;
