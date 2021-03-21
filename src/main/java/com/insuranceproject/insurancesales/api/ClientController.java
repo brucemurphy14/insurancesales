@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("api/client")
 @RestController
 public class ClientController {
-    private  final ClientJDBCDAO clientDAO;
+    private   ClientJDBCDAO clientDAO;
 
     @Autowired
     public ClientController(ClientService clientService, ClientJDBCDAO clientDAO) {

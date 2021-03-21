@@ -45,7 +45,7 @@ public class CarJDBCDAO implements DAO<Car>{
 
     @Override
     public Optional<Car> get(int id) {
-        String sql = "Select VIN_NUMBER, policy_number, vehicle_make, vehicle_model, vehicle_year FROM car WHERE policy_number = ?";
+        String sql = "Select VIN_NUMBER, policy_number, vehicle_make, vehicle_model, vehicle_year FROM car WHERE VIN_NUMBER = ?";
         Car car = null;
         try {
             car = jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);

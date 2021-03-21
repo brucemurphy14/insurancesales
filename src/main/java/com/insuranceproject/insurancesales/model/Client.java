@@ -1,6 +1,8 @@
 package com.insuranceproject.insurancesales.model;
 
 
+import java.sql.Date;
+
 /**
  * A class that represents the client table.
  */
@@ -16,6 +18,11 @@ public class Client {
     private int home_policy_number;
     private int auto_policy_number;
     private int address_id;
+    private Date client_birthday;
+
+
+
+
 
     public int getUser_id() {
         return user_id;
@@ -72,5 +79,13 @@ public class Client {
 
     public void setAddress_id(int address_id) {
         this.address_id = address_id;
+    }
+
+    public Date getClient_birthday() {
+        return client_birthday;
+    }
+
+    public void setClient_birthday(Date client_birthday) {
+        this.client_birthday = client_birthday;
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("api/Car")
+@RequestMapping("api/car")
 @RestController
 public class CarController {
     private final CarJDBCDAO carJDBCDAO;
