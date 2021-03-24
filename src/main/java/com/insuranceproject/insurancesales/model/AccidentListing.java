@@ -7,12 +7,25 @@ public class AccidentListing {
     private int client_id;
     private Date accident_date;
     private boolean at_fault;
+    private int accidents_last_5_years;
 
-    public AccidentListing(int accident_id, int client_id, Date accident_date, boolean at_fault) {
+    public AccidentListing(int accident_id, int client_id, Date accident_date, boolean at_fault, int accidents_last_5_years) {
         this.accident_id = accident_id;
         this.client_id = client_id;
         this.accident_date = accident_date;
         this.at_fault = at_fault;
+        this.accidents_last_5_years = accidents_last_5_years;
+    }
+    public AccidentListing(){
+
+    }
+
+    public int getAccidents_last_5_years() {
+        return accidents_last_5_years;
+    }
+
+    public void setAccidents_last_5_years(int accidents_last_5_years) {
+        this.accidents_last_5_years = accidents_last_5_years;
     }
 
     public int getAccident_id() {

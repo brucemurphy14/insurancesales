@@ -17,6 +17,10 @@ public class Policy_Factory{
         this.homeRatesTable = homeRatesTable;
     }
 
+    public void makePolicy(){
+        System.out.println(autoRatesTable.list());
+    }
+
     private float homePremiumCalculator(){
         return 1.0f;
     }

@@ -4,6 +4,8 @@ import com.insuranceproject.insurancesales.model.Client;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,10 +27,8 @@ public class ClientJDBCDAO implements DAO<Client> {
         client.setMain_insured_last_name(rs.getString("main_insured_last_name"));
         client.setAuto_policy_number(rs.getInt("auto_policy_number"));
         client.setAddress_id(rs.getInt("address_id"));
-        client.setUser_id(rs.getInt("user_id"));
+        client.setUsername(rs.getString("username"));
         client.setClient_birthday(rs.getDate("client_birthday"));
-
-
         return client;
     };
 
@@ -38,22 +38,31 @@ public class ClientJDBCDAO implements DAO<Client> {
 
     @Override
     public List<Client> list() {
-        String sql = "SELECT client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number, address_id, user_id, client_birthday FROM client";
+
+        String sql = "SELECT client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number, address_id,username, client_birthday FROM client";
         return jdbcTemplate.query(sql,rowMapper);
     }
 
     @Override
     public void create(Client client) {
-        String sql = "insert into client(main_insured_first_name,main_insured_last_name,  home_policy_number, auto_policy_number,address_id, user_id,client_birthday) values (?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress_id(), client.getUser_id());
+        String sql = "insert into client(main_insured_first_name,main_insured_last_name,  home_policy_number, auto_policy_number,address_id, username,client_birthday) values (?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress_id(), client.getUsername());
     }
 
     @Override
     public Optional<Client> get(int id) {
-        String sql = "Select client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number,address_id, user_id, client_birthday FROM client WHERE client_id = ?";
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+
+        System.out.println(username);
+
+
+        String sql = "Select client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number,address_id, username, client_birthday FROM client WHERE username = ?";
         Client client = null;
         try {
-            client = jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
+            client = jdbcTemplate.queryForObject(sql, new Object[]{username}, rowMapper);
         }
         catch (DataAccessException ex){
             //TO: meaningful errors
@@ -63,8 +72,8 @@ public class ClientJDBCDAO implements DAO<Client> {
 
     @Override
     public void update(Client client, int ID) {
-        String sql = "update client set main_insured_first_name =  ?,main_insured_last_name = ?, home_policy_number = ?, auto_policy_number = ?,address_id = ? , user_id = ?, client_birthday = ? WHERE client_id = ?";
-        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress_id(), client.getClient_birthday());
+        String sql = "update client set main_insured_first_name =  ?,main_insured_last_name = ?, home_policy_number = ?, auto_policy_number = ?,address_id = ? , username = ?, client_birthday = ? WHERE client_id = ?";
+        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress_id(),client.getUsername(), client.getClient_birthday());
     }
 
     @Override

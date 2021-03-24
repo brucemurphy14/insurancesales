@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Component
 public class AutoRatesJDBCDAO implements DAO<AutoRate> {
-
     private final JdbcTemplate jdbcTemplate;
 
     RowMapper<AutoRate> rowMapper = (rs, rowNum) -> {

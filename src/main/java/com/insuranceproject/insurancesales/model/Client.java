@@ -14,22 +14,18 @@ public class Client {
     private int client_id;
     private String main_insured_first_name;
     private String main_insured_last_name;
-    private int user_id;
+    private String username;
     private int home_policy_number;
     private int auto_policy_number;
     private int address_id;
     private Date client_birthday;
 
-
-
-
-
-    public int getUser_id() {
-        return user_id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 
