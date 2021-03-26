@@ -1,6 +1,8 @@
 package com.insuranceproject.insurancesales.model;
 
 
+import java.sql.Date;
+
 /**
  * a class that represents the Home table.
  */
@@ -11,7 +13,7 @@ public class Home {
 
     private int Home_id;
     private int policy_number;
-    private int age_since_built;
+    private Date date_built;
     private String type_of_dwelling;
     private String heating_type;
 
@@ -32,12 +34,12 @@ public class Home {
         this.policy_number = policy_number;
     }
 
-    public int getAge_since_built() {
-        return age_since_built;
+    public Date getDate_built() {
+        return date_built;
     }
 
-    public void setAge_since_built(int age_since_built) {
-        this.age_since_built = age_since_built;
+    public void setDate_built(Date date_built) {
+        this.date_built = date_built;
     }
 
     public String getType_of_dwelling() {

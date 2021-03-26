@@ -17,7 +17,6 @@ public class HomeRate {
     private float heating_type_wood_rate;
     private float heating_type_other_rate;
 
-
     public HomeRate(int home_policy_rate_id, float dwelling_type_single_dwelling_rate, float dwelling_type_apartment_rate, float dwelling_type_bungalow_rate, float dwelling_type_single_attached_rate, float base_premium_rate, float tax_rate, float home_age_under_25_rate, float home_age_25_or_over_rate, float home_age_50_or_over_rate, float heating_type_electric_rate, float heating_type_oil_rate, float heating_type_gas_rate, float heating_type_wood_rate, float heating_type_other_rate, float other_heat_rate) {
         this.home_policy_rate_id = home_policy_rate_id;
         this.dwelling_type_single_dwelling_rate = dwelling_type_single_dwelling_rate;
@@ -34,7 +33,6 @@ public class HomeRate {
         this.heating_type_gas_rate = heating_type_gas_rate;
         this.heating_type_wood_rate = heating_type_wood_rate;
         this.heating_type_other_rate = heating_type_other_rate;
-
     }
 
     public HomeRate(){
