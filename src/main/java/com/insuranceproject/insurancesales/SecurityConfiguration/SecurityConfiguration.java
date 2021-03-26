@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery("select username, password, enabled from users where username=?")
                 .authoritiesByUsernameQuery("select username, role from users where username=?");
 
+
     }
 
 
@@ -45,10 +46,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected  void configure(HttpSecurity http) throws Exception {
+
         http.authorizeRequests()
-                .antMatchers("/client").hasRole("CLIENT")
-                .antMatchers("/").permitAll()
-                .and().formLogin();
+                .antMatchers("/login").hasRole("CLIENT")
+              //  .antMatchers("/").permitAll()
+                .and().formLogin()
+                .defaultSuccessUrl("/index.html", true);
+        ;
+
+
+
+
     }
 
 

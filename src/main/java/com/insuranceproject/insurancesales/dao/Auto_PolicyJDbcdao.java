@@ -14,9 +14,13 @@ public class Auto_PolicyJDbcdao implements DAO<Auto_Policy> {
 
     private JdbcTemplate jdbcTemplate;
 
+    public Auto_PolicyJDbcdao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     RowMapper<Auto_Policy> rowMapper = (rs, rowNum) -> {
         Auto_Policy auto_policy = new Auto_Policy();
-        auto_policy.setPolicy_number(rs.getInt("policy"));
+        auto_policy.setPolicy_number(rs.getInt("policy_number"));
         auto_policy.setClient_id(rs.getInt("client_id"));
         auto_policy.setVIN_number(rs.getInt("VIN_NUMBER"));
         return auto_policy;

@@ -2,6 +2,7 @@ package com.insuranceproject.insurancesales.dao;
 
 
 import com.insuranceproject.insurancesales.model.DriverRiskFactors;
+import com.insuranceproject.insurancesales.model.Policy_Factory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,9 +20,11 @@ public class DriverRiskFactorsJDBCDAO implements DAO<DriverRiskFactors> {
 
     RowMapper<DriverRiskFactors> rowMapper = (rs, rowNum) -> {
         DriverRiskFactors driverRiskFactors = new DriverRiskFactors();
-        driverRiskFactors.setDriverAge(rs.getDate("client_birthday"));
+        driverRiskFactors.setDriverAge(rs.getInt("client_age"));
         driverRiskFactors.setVehicleAge(rs.getInt("vehicle_year"));
-        driverRiskFactors.setAccidentCount(rs.getInt("accident_id"));
+        driverRiskFactors.setAccidentCount(rs.getInt("at_fault_accident_count"));
+        driverRiskFactors.setVehicleWorth(rs.getFloat("vehicle_worth"));
+        driverRiskFactors.setLocation_type(rs.getString("location_type"));
         return driverRiskFactors;
     };
 
@@ -32,8 +35,7 @@ public class DriverRiskFactorsJDBCDAO implements DAO<DriverRiskFactors> {
     @Override
     public List<DriverRiskFactors> list() {
         String sql = """
-
-                select client_birthday, vehicle_year,  (
+                select location_type, TIMESTAMPDIFF (YEAR, CLIENT_Birthday, CURDATE() ) as client_age , vehicle_year,  (
                 select
         COUNT(AT_FAULT)
         from
@@ -43,10 +45,10 @@ public class DriverRiskFactorsJDBCDAO implements DAO<DriverRiskFactors> {
         AND at_fault = 1
         and client_id = main.client_id
    )
-        as accident_id
-        from CLIENT, accident_listing main, policy_holder, policy, auto_policy, car
+        as at_fault_accident_count, vehicle_worth
+        from CLIENT, accident_listing main, policy_holder, policy, auto_policy, car, address
         WHERE main.client_id = client.client_id AND client.auto_policy_number = policy_holder.policy_number AND policy.policy_number = policy_holder.policy_number
-        AND auto_policy.policy_number = policy.policy_number AND auto_policy.VIN_NUMBER = CAR.vin_number""";
+        AND auto_policy.policy_number = policy.policy_number AND auto_policy.VIN_NUMBER = CAR.vin_number and address.address_id = client.address_id""";
         return jdbcTemplate.query(sql,rowMapper);
 
 
@@ -64,9 +66,8 @@ public class DriverRiskFactorsJDBCDAO implements DAO<DriverRiskFactors> {
         //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //String username = authentication.getName();
 
-        String sql = """
-
-                select client_birthday, vehicle_year,  (
+        String sql = """              
+                select location_type, TIMESTAMPDIFF (YEAR, CLIENT_Birthday, CURDATE() ) as client_age , vehicle_year,  (
                 select
         COUNT(AT_FAULT)
         from
@@ -76,18 +77,19 @@ public class DriverRiskFactorsJDBCDAO implements DAO<DriverRiskFactors> {
         AND at_fault = 1
         and client_id = main.client_id
    )
-        as accident_id
-        from CLIENT, accident_listing main, policy_holder, policy, auto_policy, car
+        as at_fault_accident_count, vehicle_worth
+        from CLIENT, accident_listing main, policy_holder, policy, auto_policy, car, address
         WHERE main.client_id = client.client_id AND client.auto_policy_number = policy_holder.policy_number AND policy.policy_number = policy_holder.policy_number
-        AND auto_policy.policy_number = policy.policy_number AND auto_policy.VIN_NUMBER = CAR.vin_number""";
+        AND auto_policy.policy_number = policy.policy_number AND auto_policy.VIN_NUMBER = CAR.vin_number and main.client_id = ? and address.address_id = client.address_id""";
 
         DriverRiskFactors driverRiskFactors = null;
         try {
-            driverRiskFactors = jdbcTemplate.queryForObject(sql /*, new Object[]{username}*/, rowMapper);
+            driverRiskFactors = jdbcTemplate.queryForObject(sql , new Object[]{id},  rowMapper);
         }
         catch (DataAccessException ex){
             //TO: meaningful errors
         }
+
         return Optional.ofNullable(driverRiskFactors);
 
 

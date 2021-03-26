@@ -5,19 +5,38 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.sql.Date;
 
 public class DriverRiskFactors {
-    Date driverAge;
+    int driverAge;
     int vehicleAge;
     int accidentCount;
+    float vehicleWorth;
+    String location_type;
 
     public DriverRiskFactors(){
 
     }
 
-    public Date getDriverAge() {
+
+    public String getLocation_type() {
+        return location_type;
+    }
+
+    public void setLocation_type(String location_type) {
+        this.location_type = location_type;
+    }
+
+    public float getVehicleWorth() {
+        return vehicleWorth;
+    }
+
+    public void setVehicleWorth(float vehicleWorth) {
+        this.vehicleWorth = vehicleWorth;
+    }
+
+    public int getDriverAge() {
         return driverAge;
     }
 
-    public void setDriverAge(Date driverAge) {
+    public void setDriverAge(int driverAge) {
         this.driverAge = driverAge;
     }
 

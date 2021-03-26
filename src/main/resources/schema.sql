@@ -17,16 +17,16 @@ CREATE TABLE ADDRESS (
                          province VARCHAR(32),
                          city VARCHAR(20),
                          zip_code VARCHAR(6),
+                         location_type varchar(20) CHECK (location_type = 'Dense Urban' OR location_type = 'Urban' OR location_type = 'Rural'),
                          PRIMARY KEY (address_id)
 );
 
 CREATE TABLE users (
-                       user_id INT(11) NOT NULL AUTO_INCREMENT,
                        username VARCHAR(45) NOT NULL,
                        password VARCHAR(64) NOT NULL,
                        role VARCHAR(45) NOT NULL,
                        enabled TINYINT(4) DEFAULT NULL,
-                       PRIMARY KEY (`user_id`)
+                       PRIMARY KEY (`username`)
 );
 
 CREATE TABLE Home (
@@ -122,10 +122,10 @@ CREATE TABLE client (
                         home_policy_number INT,
                         auto_policy_number INT,
                         address_id INT,
-                        user_id INT(11) NOT NULL,
+                        username VARCHAR(45) NOT NULL,
                         client_birthday date,
                         PRIMARY KEY (`client_id`),
-                        FOREIGN KEY (user_id) REFERENCES users (user_id),
+                        FOREIGN KEY (username) REFERENCES users (username),
                         FOREIGN KEY (address_id) REFERENCES ADDRESS (address_id)
 );
 

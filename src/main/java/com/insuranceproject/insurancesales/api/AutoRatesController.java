@@ -20,7 +20,8 @@ public class AutoRatesController {
     }
 
     @GetMapping
-    public List<AutoRate> selectAllClients(){
+    public List<AutoRate> selectAllRates(){
+
         return autoRate.list();
     }
 }

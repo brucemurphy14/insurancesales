@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("api/Auto_Policy")
+@RequestMapping("api/auto_policy")
 @RestController
 public class Auto_PolicyController {
     private final Auto_PolicyJDbcdao autoPolicyJDbcdao;
 
     @Autowired
-    public Auto_PolicyController(ClientService clientService, Auto_PolicyJDbcdao autoPolicyJDbcdao) {
+    public Auto_PolicyController(Auto_PolicyJDbcdao autoPolicyJDbcdao) {
         this.autoPolicyJDbcdao = autoPolicyJDbcdao;
     }
 
@@ -29,18 +29,18 @@ public class Auto_PolicyController {
         return autoPolicyJDbcdao.list();
     }
 
-    @GetMapping(path = "autopolicy/{id}")
+    @GetMapping(path = "{id}")
     public Auto_Policy getAutoPolicyByID(@PathVariable("id") int id) {
         return autoPolicyJDbcdao.get(id)
                 .orElse(null);
     }
 
-    @DeleteMapping(path = "autopolicy/{id}")
+    @DeleteMapping(path = "{id}")
     public void deleteAutoPolicyByID(@PathVariable("id") int id) {
         autoPolicyJDbcdao.delete(id);
     }
 
-    @PutMapping(path = "autopolicy/{id}")
+    @PutMapping(path = "{id}")
     public void updateClient(@PathVariable("id") int id, @RequestBody Auto_Policy autoPolicyToUpdate) {
         autoPolicyJDbcdao.update(autoPolicyToUpdate, id);
     }

@@ -1,6 +1,7 @@
 package com.insuranceproject.insurancesales.dao;
 
 import com.insuranceproject.insurancesales.model.AutoRate;
+import com.insuranceproject.insurancesales.model.Policy_Factory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;

@@ -52,17 +52,17 @@ public class ClientJDBCDAO implements DAO<Client> {
     @Override
     public Optional<Client> get(int id) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //String username = authentication.getName();
 
 
-        System.out.println(username);
+       // System.out.println(username);
 
 
-        String sql = "Select client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number,address_id, username, client_birthday FROM client WHERE username = ?";
+        String sql = "Select client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number,address_id, username, client_birthday FROM client WHERE client_id = ?";
         Client client = null;
         try {
-            client = jdbcTemplate.queryForObject(sql, new Object[]{username}, rowMapper);
+            client = jdbcTemplate.queryForObject(sql ,/*new Object[]{username}*/ new Object[]{id}, rowMapper);
         }
         catch (DataAccessException ex){
             //TO: meaningful errors
