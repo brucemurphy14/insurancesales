@@ -1,34 +1,21 @@
 package com.insuranceproject.insurancesales.model;
 
-import java.sql.Date;
-
-public class Policy {
+public class Policy_Holder {
+    private int policy_holder_id;
     private int policy_number;
     private int client_id;
-    private String policy_type;
-    private Float term_price;
 
 
-
-
-    Policy(){
+    public Policy_Holder() {
 
     }
 
-    public String getPolicy_type() {
-        return policy_type;
+    public int getPolicy_holder_id() {
+        return policy_holder_id;
     }
 
-    public void setPolicy_type(String policy_type) {
-        this.policy_type = policy_type;
-    }
-
-    public Float getTerm_price() {
-        return term_price;
-    }
-
-    public void setTerm_price(Float term_price) {
-        this.term_price = term_price;
+    public void setPolicy_holder_id(int policy_holder_id) {
+        this.policy_holder_id = policy_holder_id;
     }
 
     public int getPolicy_number() {
@@ -46,6 +33,4 @@ public class Policy {
     public void setClient_id(int client_id) {
         this.client_id = client_id;
     }
-
-
 }

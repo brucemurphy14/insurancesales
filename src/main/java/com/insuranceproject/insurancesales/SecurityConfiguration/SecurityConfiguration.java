@@ -52,12 +52,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
               //  .antMatchers("/").permitAll()
                 .and().formLogin()
                 .defaultSuccessUrl("/index.html", true);
-        ;
 
-
-
-
+                http.csrf().disable();
     }
+
+
 
 
 /**

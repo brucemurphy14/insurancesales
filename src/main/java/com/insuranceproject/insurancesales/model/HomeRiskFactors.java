@@ -1,14 +1,21 @@
 package com.insuranceproject.insurancesales.model;
 
-import java.sql.Date;
-
 public class HomeRiskFactors {
+    private float calculatedPremium;
     private int homeAge;
     private String dwellingType;
     private String heatingType;
 
     public HomeRiskFactors(){
 
+    }
+
+    public float getCalculatedPremium() {
+        return calculatedPremium;
+    }
+
+    public void setCalculatedPremium(float calculatedPremium) {
+        this.calculatedPremium = calculatedPremium;
     }
 
     public int getHomeAge() {

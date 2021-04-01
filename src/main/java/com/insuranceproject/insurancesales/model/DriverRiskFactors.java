@@ -1,10 +1,8 @@
 package com.insuranceproject.insurancesales.model;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.sql.Date;
-
 public class DriverRiskFactors {
+
+    private float calculatedPremium;
     int driverAge;
     int vehicleAge;
     int accidentCount;
@@ -15,6 +13,13 @@ public class DriverRiskFactors {
 
     }
 
+    public float getCalculatedPremium() {
+        return calculatedPremium;
+    }
+
+    public void setCalculatedPremium(float calculatedPremium) {
+        this.calculatedPremium = calculatedPremium;
+    }
 
     public String getLocation_type() {
         return location_type;

@@ -4,10 +4,15 @@ import com.insuranceproject.insurancesales.model.Client;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import javax.activation.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,24 +50,32 @@ public class ClientJDBCDAO implements DAO<Client> {
 
     @Override
     public void create(Client client) {
+
+        String nextClient = "SELECT MAX(client_id)+1 FROM CLIENT";
+
         String sql = "insert into client(main_insured_first_name,main_insured_last_name,  home_policy_number, auto_policy_number,address_id, username,client_birthday) values (?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress_id(), client.getUsername());
+        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress_id(), client.getUsername(), client.getClient_birthday());
+
+        int nextClientKey = jdbcTemplate.queryForObject("SELECT MAX(client_id) FROM CLIENT", Integer.class);
+
+        System.out.println(nextClientKey);
     }
 
     @Override
     public Optional<Client> get(int id) {
 
-        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //String username = authentication.getName();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
 
 
-       // System.out.println(username);
+        System.out.println(username);
 
 
-        String sql = "Select client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number,address_id, username, client_birthday FROM client WHERE client_id = ?";
+        String sql = "Select client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number,address_id, username, client_birthday FROM client WHERE client_id = ? AND username = " + "'" + username + "'";
         Client client = null;
         try {
-            client = jdbcTemplate.queryForObject(sql ,/*new Object[]{username}*/ new Object[]{id}, rowMapper);
+
+            client = jdbcTemplate.queryForObject(sql /*,new Object[]{username}*/, new Object[]{id}, rowMapper);
         }
         catch (DataAccessException ex){
             //TO: meaningful errors

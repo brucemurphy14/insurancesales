@@ -33,7 +33,6 @@ public class DriverRiskFactorsController {
     @GetMapping(path = "{id}")
     public DriverRiskFactors getDriversRiskFactor(@PathVariable("id") int id){
 
-
         return driverRiskDAO.get(id)
                 .orElse(null);
     }

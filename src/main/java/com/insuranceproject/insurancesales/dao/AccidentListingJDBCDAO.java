@@ -52,8 +52,6 @@ public class AccidentListingJDBCDAO implements DAO<AccidentListing>{
         from
         accident_listing main""";
         return jdbcTemplate.query(sql2,rowMapper);
-
-
     }
 
     @Override

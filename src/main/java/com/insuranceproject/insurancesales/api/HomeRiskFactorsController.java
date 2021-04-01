@@ -2,7 +2,6 @@ package com.insuranceproject.insurancesales.api;
 
 import com.insuranceproject.insurancesales.dao.HomeRatesJDBCDAO;
 import com.insuranceproject.insurancesales.dao.HomeRiskFactorsJDBCDAO;
-import com.insuranceproject.insurancesales.model.DriverRiskFactors;
 import com.insuranceproject.insurancesales.model.HomeRiskFactors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
