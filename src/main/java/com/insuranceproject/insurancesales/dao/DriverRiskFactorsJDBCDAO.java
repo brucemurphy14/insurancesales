@@ -1,18 +1,16 @@
 package com.insuranceproject.insurancesales.dao;
 
-
 import com.insuranceproject.insurancesales.model.DriverRiskFactors;
-import com.insuranceproject.insurancesales.model.Policy_Factory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This DAO retrieves client auto risk factors for policy calculation cost.
+ */
 @Component
 public class DriverRiskFactorsJDBCDAO implements DAO<DriverRiskFactors> {
 

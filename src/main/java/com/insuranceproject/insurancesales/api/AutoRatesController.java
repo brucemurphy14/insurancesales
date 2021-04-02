@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * REST endpoint that Exposes the auto rates table for debugging purposes.
+ */
 @RequestMapping("api/auto_rates")
 @RestController
 public class AutoRatesController {

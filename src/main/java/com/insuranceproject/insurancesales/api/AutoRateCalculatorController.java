@@ -6,6 +6,9 @@ import com.insuranceproject.insurancesales.model.Policy_Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST endpoint that calculates auto policy rates and returns a JSON object with a totalPremium.
+ */
 @RequestMapping("api/auto_premium_rating")
 @RestController
 public class AutoRateCalculatorController {

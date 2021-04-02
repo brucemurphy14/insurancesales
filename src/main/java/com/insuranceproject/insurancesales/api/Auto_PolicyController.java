@@ -1,14 +1,14 @@
 package com.insuranceproject.insurancesales.api;
 
-
 import com.insuranceproject.insurancesales.dao.Auto_PolicyJDbcdao;
 import com.insuranceproject.insurancesales.model.Auto_Policy;
-import com.insuranceproject.insurancesales.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+/**
+ * API access point for auto_policy table.
+ */
 @RequestMapping("api/auto_policy")
 @RestController
 public class Auto_PolicyController {

@@ -2,11 +2,7 @@ package com.insuranceproject.insurancesales.api;
 
 import com.insuranceproject.insurancesales.dao.AutoRatesJDBCDAO;
 import com.insuranceproject.insurancesales.dao.DriverRiskFactorsJDBCDAO;
-import com.insuranceproject.insurancesales.dao.HomeRatesJDBCDAO;
-import com.insuranceproject.insurancesales.model.AutoRate;
-import com.insuranceproject.insurancesales.model.Client;
 import com.insuranceproject.insurancesales.model.DriverRiskFactors;
-import com.insuranceproject.insurancesales.model.Policy_Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * REST endpoint that takes A DriverRiskFactors object and returns a JSON containg the calculates policy cost.
+ */
 @RequestMapping("api/auto_risk")
 @RestController
 public class DriverRiskFactorsController {

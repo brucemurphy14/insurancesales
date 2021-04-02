@@ -1,5 +1,8 @@
 package com.insuranceproject.insurancesales.model;
 
+/**
+ * A POJO that contains a clients individual risk rating for a home policy.
+ */
 public class HomeRiskFactors {
     private float calculatedPremium;
     private int homeAge;

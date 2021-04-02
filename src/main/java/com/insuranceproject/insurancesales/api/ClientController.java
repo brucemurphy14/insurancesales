@@ -10,8 +10,6 @@ import java.util.List;
 /**
  * This class exposes the client objects to the REST API.
  */
-
-
 @RequestMapping("api/client")
 @RestController
 public class ClientController {

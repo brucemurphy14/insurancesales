@@ -2,6 +2,9 @@ package com.insuranceproject.insurancesales.model;
 
 import java.sql.Date;
 
+/**
+ * A POJO that represents the policy table.
+ */
 public class Policy {
     private int policy_number;
     private int client_id;

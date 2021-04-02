@@ -1,5 +1,8 @@
 package com.insuranceproject.insurancesales.model;
 
+/**
+ * A POJO that represents the address table.
+ */
 public class Address {
 
     private  int address_id;

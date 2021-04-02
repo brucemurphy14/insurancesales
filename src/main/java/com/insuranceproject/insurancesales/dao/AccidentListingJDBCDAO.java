@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A DAO class that handles reading the accident_listing table values from the database.
+ */
 @Component
 public class AccidentListingJDBCDAO implements DAO<AccidentListing>{
 

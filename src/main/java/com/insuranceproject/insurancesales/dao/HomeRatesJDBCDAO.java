@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * This DAO reads the rating information for home policies from the database.
+ */
 @Component
 public class HomeRatesJDBCDAO implements DAO<HomeRate> {
 

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST endpoint for the cars table.
+ */
 @RequestMapping("api/car")
 @RestController
 public class CarController {

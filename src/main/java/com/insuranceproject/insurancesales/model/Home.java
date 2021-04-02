@@ -4,7 +4,7 @@ package com.insuranceproject.insurancesales.model;
 import java.sql.Date;
 
 /**
- * a class that represents the Home table.
+ * a POJO that represents the Home table.
  */
 
 //TODO : Implement controller, DAO interface and data access service

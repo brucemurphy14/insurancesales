@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This DAO class handles interactions with the car table.
+ */
 @Component
 public class CarJDBCDAO implements DAO<Car>{
 

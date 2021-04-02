@@ -2,6 +2,9 @@ package com.insuranceproject.insurancesales.model;
 
 public class DriverRiskFactors {
 
+    /**
+     * A pojo that represents the factors that a given client has for auto policy cost calculations.
+     */
     private float calculatedPremium;
     int driverAge;
     int vehicleAge;

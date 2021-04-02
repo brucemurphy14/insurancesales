@@ -1,5 +1,8 @@
 package com.insuranceproject.insurancesales.model;
 
+/**
+ * A POJO that represents the home_rating table. This contains the multipliers for home policy calculations.
+ */
 public class HomeRate {
     private int home_policy_rate_id;
     private float dwelling_type_single_dwelling_rate;

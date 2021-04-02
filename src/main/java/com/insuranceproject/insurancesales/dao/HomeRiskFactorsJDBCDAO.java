@@ -1,15 +1,16 @@
 package com.insuranceproject.insurancesales.dao;
 
-import com.insuranceproject.insurancesales.model.DriverRiskFactors;
 import com.insuranceproject.insurancesales.model.HomeRiskFactors;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This DAO class accesses the database for risk factors for home insurance policies.
+ */
 @Component
 public class HomeRiskFactorsJDBCDAO implements DAO<HomeRiskFactors> {
 

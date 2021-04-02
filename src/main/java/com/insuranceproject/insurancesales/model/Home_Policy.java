@@ -3,7 +3,7 @@ package com.insuranceproject.insurancesales.model;
 import java.sql.Date;
 
 /**
- * A class that represents the home_policy table.
+ * A POJO that represents the home_policy table.
  */
 
 //TODO : Implement controller, DAO interface and data access service

@@ -2,7 +2,7 @@ package com.insuranceproject.insurancesales.model;
 import java.util.UUID;
 
 /**
- * A class that represents the Car table.
+ * A POJO that represents the Car table.
  */
 
 //TODO : Implement controller, DAO interface and data access service

@@ -9,6 +9,9 @@ import java.sql.Date;
 
 //TODO : Implement controller, DAO interface and data access service
 
+/**
+ * A pojo that represents the client table.
+ */
 public class Client {
 
     private int client_id;

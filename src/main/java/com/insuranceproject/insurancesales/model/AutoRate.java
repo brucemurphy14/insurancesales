@@ -1,5 +1,8 @@
 package com.insuranceproject.insurancesales.model;
 
+/**
+ * A pojo that represents the auto_rate table. Contains the rating factors for policy cost calculation.
+ */
 public class AutoRate {
     private int auto_policy_rate_id;
     private float base_premium_rate;

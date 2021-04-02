@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * API access point for accident listings.
+ */
 @RequestMapping("api/accident_listing")
 @RestController
 public class AccidentListingController {

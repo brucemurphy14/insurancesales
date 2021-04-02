@@ -1,7 +1,6 @@
 package com.insuranceproject.insurancesales.dao;
 
 import com.insuranceproject.insurancesales.model.AutoRate;
-import com.insuranceproject.insurancesales.model.Policy_Factory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -9,6 +8,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A DAO class that reads from the auto_rate table. These factors are multiplied by individual client risk
+ * factors to calculate the policy rate.
+ */
 @Component
 public class AutoRatesJDBCDAO implements DAO<AutoRate> {
     private final JdbcTemplate jdbcTemplate;

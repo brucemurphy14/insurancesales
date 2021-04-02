@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Insurance quoting</title>
+    <title>Insurance Details</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -238,7 +238,7 @@ cursor: pointer;
     <div class="testbox">
       <form>
         <div class="banner">
-          <h1>Insurance Policy API Test Page</h1>
+          <h1>Dashboard Homepage</h1>
         </div>
         <br/>    
               <div class="topnav">
@@ -249,80 +249,31 @@ cursor: pointer;
 </div>
           <br>     
         <fieldset>
-          <legend></legend>
-<p><b>Auto insurance</b></p>
-          <div class="item">
-            <label for="driverAge"> Driver Age<span>*</span></label>
-            <input id="driverAge" type="text" name="fname" />
-          </div>
-          <div class="item">
-            <label for="vehicleAge">Vehicle Age<span>*</span></label>
-            <input id="vehicleAge" type="text" name="activity" />
-          </div>
-          <div class="item">
-            <label for="accidentCount">Number of at fault accidents in loast 5 years<span>*</span></label>
-            <input id="accidentCount" type="number" name="accidentCount" />
-          </div>
-            <div class="item">
-             <label for="vehicleWorth">Insured Car Worth<span>*</span></label>
-            <input id="vehicleWorth" type="text" name="vehicleWorth" />
-          </div>
-            
-            
-           <div class="item">
-            <label>What type of area is the car garaged in?<span>*</span></label>
-            <select id = "carGaragedArea">
-              <option selected value="" disabled selected></option>
-                  <option value="Dense Urban" >Dense Urban</option>
-                  <option value="Urban">Urban</option>
-                  <option value="Rural">Rural</option>
-              </select>
-          </div>
-            <div>
-            <span id="result1"></span>
-          <button type="calc" id="calc"  onclick="fire_ajax_submit_car()">Calculate</button>
-        </div>
- 
+          <legend>Dashboard</legend>
+
             <hr>
-<p><b>Home Insurance</b></p>
-  <div class="item">
-            <label for="homeAge">Age of home (in years)<span>*</span></label>
-            <input id="homeAge" type="text" name="homeAge" />
-          </div>
-          <div class="item">
-            <label>Type of House<span>*</span></label>
-              <select id = "typeOfHouse">
-              <option selected value="" disabled selected></option>
-                  <option value="Single Dwelling" >Single Dwelling</option>
-                  <option value="Apartment">Apartment</option>
-                  <option value="Bungalow">Bungalow</option>
-                  <option value="Semi-attached">Semi-attached</option>
+<p><b>Welcome, CLIENTNAMEHERE</b></p>
+ 
+    
             
-              </select>
-          </div>
+         <p> Here are the policies that you currently have with us:</p>
+            <br>
             
-          <div class="item">
-            <label>Heating Type<span>*</span></label>
-             <select id = "heatingType">
-              <option selected value="" disabled selected></option>
-                  <option value="Electric" >Electric</option>
-                  <option value="Oil">Oil</option>
-                  <option value="Wood">Wood</option>
-                  <option value="Gas">Gas</option>
-                  <option value="Other">Other</option>
-              </select>
-          </div>
+            <p>Home:</p>
+            <br>
+            <p id = "HomePolicyList"></p>
+            <br>
+            <p>Auto</p>
+            <br>
+            <p id= "AutoPolicyList"></p>
+         
                  
          <div>
 <span id="result"></span>
-          <button type="calc" id="calc1"  onclick="fire_ajax_submit_home()">Calculate</button> 
         </div>
                </fieldset>
         <br/>
      
-        <div class="btn-block">
-          <button type="submit" href="/">Submit</button>
-        </div>
       </form>
     </div>
         

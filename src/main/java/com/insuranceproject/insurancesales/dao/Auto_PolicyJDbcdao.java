@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A DAO class that handles interacting with the auto_policy table.
+ */
 @Component
 public class Auto_PolicyJDbcdao implements DAO<Auto_Policy> {
 

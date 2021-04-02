@@ -5,11 +5,11 @@ import com.insuranceproject.insurancesales.dao.AutoRatesJDBCDAO;
 import com.insuranceproject.insurancesales.dao.HomeRatesJDBCDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 /**
  * This class calculates the premium cost of Auto/Home insurance rates.
  * Uses the DAO for both rates tables to compare to inputted values.
+ * Both methods use the class for individual risk rates from home/auto as inputs and outputs the premium for a policy.
  */
 @Component
 public class Policy_Factory{
@@ -17,7 +17,6 @@ public class Policy_Factory{
     private  AutoRatesJDBCDAO autoRatesTable;
     @Autowired
     private HomeRatesJDBCDAO homeRatesTable;
-
 
     public  DriverRiskFactors generateAutoRate(DriverRiskFactors driverRiskFactors){
         float totalPolicyCost;
@@ -51,12 +50,12 @@ public class Policy_Factory{
             accidentRatingLast5Years = 2.5f;
         }
 
+        /*
         System.out.println(basePremiumRate);
         System.out.println(driverAgeRate);
         System.out.println(accidentRatingLast5Years);
         System.out.println(vehicleAgeRate);
-
-
+        */
         totalPolicyCost = basePremiumRate * driverAgeRate * accidentRatingLast5Years * vehicleAgeRate;
        // System.out.println(totalPolicyCost);
         driverRiskFactors.setCalculatedPremium(totalPolicyCost);
@@ -89,7 +88,7 @@ public class Policy_Factory{
             homeAgeRate = homeRatesTable.list().get(0).getHome_age_under_25_rate();
         }
 
-        else if (homeAge < 50 && homeAge >= 25){
+        else if (homeAge < 50 ){
             homeAgeRate = homeRatesTable.list().get(0).getHome_age_25_or_over_rate();
         }
         else if (homeAge >= 50){
@@ -134,7 +133,7 @@ public class Policy_Factory{
         }
 
 
-        totalPremiumCost =  basePremiumRate *  homeAgeRate * heatingtypeRate;
+        totalPremiumCost =  basePremiumRate *  homeAgeRate * heatingtypeRate * dwellingTypeRate;
 
 /*
         System.out.println(basePremiumRate);

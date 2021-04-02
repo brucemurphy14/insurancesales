@@ -9,6 +9,9 @@ import org.springframework.jdbc.core.RowMapper;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This DAO class retrieves the data from the home_policy table.
+ */
 public class Home_PolicyJDBCDAO implements DAO<Home_Policy> {
 //TODO implement interface methods
     private JdbcTemplate jdbcTemplate;

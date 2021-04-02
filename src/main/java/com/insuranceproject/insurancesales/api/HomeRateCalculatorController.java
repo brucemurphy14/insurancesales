@@ -6,6 +6,9 @@ import com.insuranceproject.insurancesales.model.Policy_Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST endpoint that takes a HomeRiskFactor object as input and returns the calculated home policy premium.
+ */
 @RequestMapping("api/home_premium_rating")
 @RestController
 public class HomeRateCalculatorController {

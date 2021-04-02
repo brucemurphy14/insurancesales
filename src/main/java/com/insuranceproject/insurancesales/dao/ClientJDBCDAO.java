@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * This class implements the behaviour of the DAO interface for Client objects.
+ * This DAO class handles interactions with the client table.
  */
 
 @Component

@@ -1,5 +1,8 @@
 package com.insuranceproject.insurancesales.model;
 
+/**
+ * A POJO that represents the policy_holder table.
+ */
 public class Policy_Holder {
     private int policy_holder_id;
     private int policy_number;

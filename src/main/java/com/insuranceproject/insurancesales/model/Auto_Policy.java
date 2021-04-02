@@ -1,7 +1,7 @@
 package com.insuranceproject.insurancesales.model;
 
 /**
- * A class that represents the auto_policy table.
+ * A POJO that represents the auto_policy table.
  */
 
 import java.sql.Date;

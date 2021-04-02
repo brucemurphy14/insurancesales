@@ -2,6 +2,9 @@ package com.insuranceproject.insurancesales.model;
 
 import java.sql.Date;
 
+/**
+ * A  POJO that represents the accident_listing table.
+ */
 public class AccidentListing {
     private int accident_id;
     private int client_id;
