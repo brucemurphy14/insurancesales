@@ -5,6 +5,8 @@ import com.insuranceproject.insurancesales.model.DriverRiskFactors;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -59,7 +61,20 @@ public class AccidentListingJDBCDAO implements DAO<AccidentListing>{
 
     @Override
     public void create(AccidentListing accidentListing) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
 
+        String sqlcurrentclientID = "select client_id from client where username =" +  "'" + username + "'";
+
+        int loggedInClientID = jdbcTemplate.queryForObject(sqlcurrentclientID, Integer.class);
+
+        String sql = "insert into accident_listing(client_id,accident_date,  at_fault) values ((select client_id from client where username =" +  "'" + username + "'" + ")" + " ,?,?)";
+        jdbcTemplate.update(sql,/*accidentListing.getClient_id(),*/ accidentListing.getAccident_date(), accidentListing.isAt_fault());
+    }
+
+    @Override
+    public int createAndReturnAutoKey(AccidentListing accidentListing) {
+        return 0;
     }
 
     @Override

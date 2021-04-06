@@ -47,6 +47,11 @@ public class HomeRiskFactorsJDBCDAO implements DAO<HomeRiskFactors> {
     }
 
     @Override
+    public int createAndReturnAutoKey(HomeRiskFactors homeRiskFactors) {
+        return 0;
+    }
+
+    @Override
     public Optional<HomeRiskFactors> get(int id) {
 
         String sql = """ 

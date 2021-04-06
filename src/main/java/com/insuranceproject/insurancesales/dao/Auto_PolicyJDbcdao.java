@@ -4,6 +4,8 @@ import com.insuranceproject.insurancesales.model.Auto_Policy;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -38,8 +40,17 @@ public class Auto_PolicyJDbcdao implements DAO<Auto_Policy> {
 
     @Override
     public void create(Auto_Policy auto_policy) {
-        String sql = "insert into auto_policy(policy_number, client_id, VIN_NUMBER) values (?,?,?)";
-        jdbcTemplate.update(sql,auto_policy.getPolicy_number(), auto_policy.getClient_id(),auto_policy.getVIN_number());
+        //String sql = "insert into auto_policy(policy_number, client_id, VIN_NUMBER) values (?,?,?)";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        String sql = "Insert into Auto_policy(policy_number, client_id, VIN_NUMBER)" +
+                " values((SELECT MAX(policy_number) FROM POLICY) ,(select client_id from client where username = 'rfw'/*" +  "'" + username + "'" + "*/)"+ " , SELECT MAX(VIN_NUMBER) from home)";
+        jdbcTemplate.update(sql/*,auto_policy.getPolicy_number(), auto_policy.getClient_id(),auto_policy.getVIN_number()*/);
+    }
+
+    @Override
+    public int createAndReturnAutoKey(Auto_Policy auto_policy) {
+        return 0;
     }
 
     @Override

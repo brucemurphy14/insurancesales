@@ -134,14 +134,6 @@ public class Policy_Factory{
 
 
         totalPremiumCost =  basePremiumRate *  homeAgeRate * heatingtypeRate * dwellingTypeRate;
-
-/*
-        System.out.println(basePremiumRate);
-        System.out.println(homeAgeRate);
-        System.out.println(dwellingType);
-        System.out.println(heatingType);
-        System.out.println(totalPremiumCost);
-        */
         homeRiskFactors.setCalculatedPremium(totalPremiumCost);
 
         return homeRiskFactors;
@@ -150,6 +142,8 @@ public class Policy_Factory{
     }
 
     public void makePolicy(){
+
+
     }
 
 }

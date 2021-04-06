@@ -10,12 +10,21 @@ public class Policy {
     private int client_id;
     private String policy_type;
     private Float term_price;
+    private Date start_date;
 
 
 
 
-    Policy(){
+    public Policy(){
 
+    }
+
+    public Date getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
     }
 
     public String getPolicy_type() {

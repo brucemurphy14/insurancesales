@@ -53,12 +53,21 @@ public class ClientJDBCDAO implements DAO<Client> {
 
         String nextClient = "SELECT MAX(client_id)+1 FROM CLIENT";
 
-        String sql = "insert into client(main_insured_first_name,main_insured_last_name,  home_policy_number, auto_policy_number,address_id, username,client_birthday) values (?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress_id(), client.getUsername(), client.getClient_birthday());
+        String sql = "insert into client(main_insured_first_name,main_insured_last_name,  home_policy_number, auto_policy_number, address_id, username,client_birthday) values (?,?,?,?,(SELECT LAST_INSERT_ID()),(select username from users where user_id = (select max(user_id) from users)) ,?)";
+        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(), client.getHome_policy_number(), client.getAuto_policy_number() , /*client.getAddress_id(),*/ /*client.getUsername(),*/ client.getClient_birthday());
 
         int nextClientKey = jdbcTemplate.queryForObject("SELECT MAX(client_id) FROM CLIENT", Integer.class);
 
         System.out.println(nextClientKey);
+    }
+
+    @Override
+    public int createAndReturnAutoKey(Client client) {
+        String nextClient = "SELECT MAX(client_id)+1 FROM CLIENT";
+        String sql = "insert into client(main_insured_first_name,main_insured_last_name,  home_policy_number, auto_policy_number,address_id, username,client_birthday) values (?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress_id(), client.getUsername(), client.getClient_birthday());
+        int nextClientKey = jdbcTemplate.queryForObject("SELECT MAX(client_id) FROM CLIENT", Integer.class);
+        return nextClientKey;
     }
 
     @Override
@@ -71,11 +80,15 @@ public class ClientJDBCDAO implements DAO<Client> {
         System.out.println(username);
 
 
-        String sql = "Select client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number,address_id, username, client_birthday FROM client WHERE client_id = ? AND username = " + "'" + username + "'";
+        String sql = "Select client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number,address_id, username, client_birthday FROM client  WHERE username = " + "'" + username + "'";
+        //String sql = "Select client_id, main_insured_first_name,main_insured_last_name, home_policy_number, auto_policy_number,address_id, username, client_birthday FROM client WHERE client_id = ?";
+
+        System.out.println(sql);
+
         Client client = null;
         try {
 
-            client = jdbcTemplate.queryForObject(sql /*,new Object[]{username}*/, new Object[]{id}, rowMapper);
+            client = jdbcTemplate.queryForObject(sql /*,new Object[]{username} */ , /*, new Object[]{id} ,*/ rowMapper);
         }
         catch (DataAccessException ex){
             //TO: meaningful errors

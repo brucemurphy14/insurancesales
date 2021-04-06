@@ -47,6 +47,11 @@ public class CarJDBCDAO implements DAO<Car>{
     }
 
     @Override
+    public int createAndReturnAutoKey(Car car) {
+        return 0;
+    }
+
+    @Override
     public Optional<Car> get(int id) {
         String sql = "Select VIN_NUMBER, policy_number, vehicle_make, vehicle_model, vehicle_year FROM car WHERE VIN_NUMBER = ?";
         Car car = null;

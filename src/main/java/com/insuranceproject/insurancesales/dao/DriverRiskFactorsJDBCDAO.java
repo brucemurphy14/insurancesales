@@ -58,6 +58,11 @@ public class DriverRiskFactorsJDBCDAO implements DAO<DriverRiskFactors> {
 
     }
 
+    @Override
+    public int createAndReturnAutoKey(DriverRiskFactors driverRiskFactors) {
+        return 0;
+    }
+
 
     @Override
     public Optional<DriverRiskFactors> get(int id) {

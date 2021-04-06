@@ -51,6 +51,11 @@ public class AutoRatesJDBCDAO implements DAO<AutoRate> {
     }
 
     @Override
+    public int createAndReturnAutoKey(AutoRate autoRate) {
+        return 0;
+    }
+
+    @Override
     public Optional<AutoRate> get(int id) {
         return Optional.empty();
     }

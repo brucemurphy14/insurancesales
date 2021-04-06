@@ -21,6 +21,14 @@ public interface DAO<T> {
     void create(T t);
 
     /**
+     * Creates a new row in a table and returns the auto incremented primary key from it.
+     * @param t
+     * @return
+     */
+
+    int createAndReturnAutoKey(T t);
+
+    /**
      * Retrieves a particular row from the database.
      * @param id usually client_id to get information on a single client
      * @return a pojo of the table row

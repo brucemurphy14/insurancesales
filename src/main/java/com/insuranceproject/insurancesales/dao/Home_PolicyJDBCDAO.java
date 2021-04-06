@@ -1,10 +1,13 @@
 package com.insuranceproject.insurancesales.dao;
 
-import com.insuranceproject.insurancesales.model.Auto_Policy;
 import com.insuranceproject.insurancesales.model.Home_Policy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +15,10 @@ import java.util.Optional;
 /**
  * This DAO class retrieves the data from the home_policy table.
  */
+@Component
 public class Home_PolicyJDBCDAO implements DAO<Home_Policy> {
 //TODO implement interface methods
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     RowMapper<Home_Policy> rowMapper = (rs, rowNum) -> {
@@ -33,10 +38,20 @@ public class Home_PolicyJDBCDAO implements DAO<Home_Policy> {
 
     @Override
     public void create(Home_Policy home_policy) {
+     /*   String sql = "Insert into Home_policy(policy_number, client_id, home_id)" +
+                 " values(?,?,?)";*/
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         String sql = "Insert into Home_policy(policy_number, client_id, home_id)" +
-                 " values(?,?,?)";
+                " values((SELECT MAX(policy_number) FROM POLICY) ,(select client_id from client where username = 'rfw'/*" +  "'" + username + "'" + "*/)"+ " , SELECT MAX(HOME_ID) from home)";
 
-        jdbcTemplate.update(sql,home_policy.getPolicy_number(),home_policy.getClient_id(), home_policy.getHome_id() );
+
+        jdbcTemplate.update(sql /*home_policy.getPolicy_number()*//* ,home_policy.getClient_id(),*//* home_policy.getHome_id()*/ );
+    }
+
+    @Override
+    public int createAndReturnAutoKey(Home_Policy home_policy) {
+        return 0;
     }
 
     @Override

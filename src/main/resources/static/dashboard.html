@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Insurance Details</title>
+    <title>Camp Registration</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -246,22 +246,26 @@ cursor: pointer;
   <a href="/dashboard.html">Dashboard</a>
   <a href="#contact">Contact</a>
   <a href="/login">Login</a>
-</div>
+ <a href="/logout">Logout</a>
+
+              </div>
           <br>     
         <fieldset>
           <legend>Dashboard</legend>
 
             <hr>
-<p><b>Welcome, CLIENTNAMEHERE</b></p>
- 
-    
-            
+<p id = "client_name"><b>Welcome, CLIENTNAMEHERE</b></p>
          <p> Here are the policies that you currently have with us:</p>
             <br>
-            
             <p>Home:</p>
             <br>
             <p id = "HomePolicyList"></p>
+            <br>
+            <p id = "policyNumber"></p>
+            <br>
+            <p id = "effectiveDate"></p>
+            <br>
+            <p id = "Car Insured"></p>
             <br>
             <p>Auto</p>
             <br>
@@ -279,12 +283,6 @@ cursor: pointer;
         
       <script>
           
-    $("#calc").click(function(event){
-
-        //stop submit the form, we will get it manually.
-        event.preventDefault();
-      //  fire_ajax_submit();
-    });
           
            $("#calc1").click(function(event){
 
@@ -292,6 +290,16 @@ cursor: pointer;
         event.preventDefault();
       //  fire_ajax_submit();
     });
+          
+          
+          $(document).ready(function() {
+              
+           $.getJSON("http://localhost:8080/api/client/1", function(data){
+               $("#client_name").text("Welcome, " + data.main_insured_first_name + " " + data.main_insured_last_name );
+            //   alert(data);
+           })
+          });
+          
           
 function fire_ajax_submit_car() {
 
@@ -302,13 +310,11 @@ function fire_ajax_submit_car() {
     var carGaragedArea = $("#carGaragedArea").val();
        
     var carData = {
-        
             driver_age: driverAge,
             vehicleAge: vehicleAge,
             accidentCount:accidents_last_5_years,
             vehicleWorth:insuredCarWorth,
             locationType:carGaragedArea
-        
         }
     
     var jsonCarData = JSON.stringify(carData);

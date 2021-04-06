@@ -30,7 +30,7 @@ public class AccidentListingController {
     }
 
     @GetMapping
-    public List<AccidentListing> selectAllClients(){
+    public List<AccidentListing> selectAllAccidents(){
         return accidentListingDAO.list();
     }
 }

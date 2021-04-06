@@ -10,14 +10,19 @@ public class Address {
     private String province;
     private String city;
     private String zip_code;
+    private String location_type;
 
 
-    public Address(int address_id, String street_address, String province, String city, String zip_code) {
-        this.address_id = address_id;
-        this.street_address = street_address;
-        this.province = province;
-        this.city = city;
-        this.zip_code = zip_code;
+    public Address() {
+
+    }
+
+    public String getLocation_type() {
+        return location_type;
+    }
+
+    public void setLocation_type(String location_type) {
+        this.location_type = location_type;
     }
 
     public int getAddress_id() {

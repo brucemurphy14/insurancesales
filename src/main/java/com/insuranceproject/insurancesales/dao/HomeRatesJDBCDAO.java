@@ -54,6 +54,11 @@ public class HomeRatesJDBCDAO implements DAO<HomeRate> {
     }
 
     @Override
+    public int createAndReturnAutoKey(HomeRate homeRate) {
+        return 0;
+    }
+
+    @Override
     public Optional<HomeRate> get(int id) {
         return Optional.empty();
     }
