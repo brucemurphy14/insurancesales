@@ -64,11 +64,13 @@ public class AccidentListingJDBCDAO implements DAO<AccidentListing>{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        String sqlcurrentclientID = "select client_id from client where username =" +  "'" + username + "'";
+       // String sqlcurrentclientID = "select client_id from client where username =" +  "'" + username + "'";
 
-        int loggedInClientID = jdbcTemplate.queryForObject(sqlcurrentclientID, Integer.class);
+      //  int loggedInClientID = jdbcTemplate.queryForObject(sqlcurrentclientID, Integer.class);
 
-        String sql = "insert into accident_listing(client_id,accident_date,  at_fault) values ((select client_id from client where username =" +  "'" + username + "'" + ")" + " ,?,?)";
+       // String sql = "insert into accident_listing(client_id,accident_date,  at_fault) values ((select client_id from client where username =" +  "'" + username + "'" + ")" + " ,?,?)";
+        String sql = "insert into accident_listing(client_id,accident_date,  at_fault) values ((select client_id from client where username =" + "'" +username +"'" +")" + " ,?,?)";
+
         jdbcTemplate.update(sql,/*accidentListing.getClient_id(),*/ accidentListing.getAccident_date(), accidentListing.isAt_fault());
     }
 

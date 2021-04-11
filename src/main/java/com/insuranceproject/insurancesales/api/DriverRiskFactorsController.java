@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * REST endpoint that takes A DriverRiskFactors object and returns a JSON containg the calculates policy cost.
+ * REST endpoint that takes A DriverRiskFactors object and returns a JSON containing the calculated policy cost.
  */
 @RequestMapping("api/auto_risk")
 @RestController

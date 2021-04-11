@@ -40,9 +40,8 @@ public class HomeJDBCDAO implements DAO<Home>{
 
     @Override
     public void create(Home home) {
-        String sql = "insert into HOME(date_built, type_of_dwelling, heating_type) values (?,?,?)";
+        String sql = "insert into HOME(policy_number, date_built, type_of_dwelling, heating_type) values ((SELECT LAST_INSERT_ID()), ?,?,?)";
         jdbcTemplate.update(sql, home.getDate_built(), home.getType_of_dwelling(), home.getHeating_type());
-
 
     }
 

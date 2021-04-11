@@ -36,7 +36,7 @@ public class HomeRiskFactorsJDBCDAO implements DAO<HomeRiskFactors> {
         WHERE client.client_id = policy_holder.client_id
         AND policy.policy_number = policy_holder.policy_number
         AND home_policy.policy_number = policy.policy_number
-        AND  home_policy_number = home_policy.policy_number""";
+        AND  home.HOME_ID = home_policy.home_id""";
 
         return jdbcTemplate.query(sql, rowMapper);
     }
@@ -60,7 +60,7 @@ public class HomeRiskFactorsJDBCDAO implements DAO<HomeRiskFactors> {
         WHERE client.client_id = policy_holder.client_id
         AND policy.policy_number = policy_holder.policy_number
         AND home_policy.policy_number = policy.policy_number
-        AND  home_policy_number = home_policy.policy_number AND client.client_id = ?""";
+        AND  home.HOME_ID = home_policy.home_id AND policy.policy_type = 'Home' and client.client_id = ?""";
 
         HomeRiskFactors homeRiskFactors = null;
         try {

@@ -1,5 +1,6 @@
 package com.insuranceproject.insurancesales.dao;
 
+import com.insuranceproject.insurancesales.api.PolicyPriceCreator;
 import com.insuranceproject.insurancesales.model.Policy_Holder;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,10 +39,21 @@ public class Policy_HolderJDBCDAO implements DAO<Policy_Holder> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
        // String sql = "insert into policy_holder(policy_number, client_id) values (?,?)";
-         String sql = "insert into policy_holder(policy_number, client_id) values ((select LAST_INSERT_ID()), (select client_id from client where username = 'rfw'/*\" +  \"'\" + username + \"'\" + \"*/) )";
+         String sql = "insert into policy_holder(policy_number, client_id) values ((select MAX(policy_number)), (select client_id from client where username =" +  "'" + username + "'" + "))";
 
         jdbcTemplate.update(sql/*, policy_holder.getPolicy_number(), policy_holder.getClient_id()*/);
     }
+
+    public void createNoParam() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        System.out.println(username);
+        // String sql = "insert into policy_holder(policy_number, client_id) values (?,?)";
+        String sql = "insert into policy_holder(policy_number, client_id) values ((select MAX(policy_number) from policy), (select client_id from client where username = " +  "'" + username + "'" + "))";
+        jdbcTemplate.update(sql/*, policy_holder.getPolicy_number(), policy_holder.getClient_id()*/);
+    }
+
+
 
     @Override
     public int createAndReturnAutoKey(Policy_Holder policy_holder) {

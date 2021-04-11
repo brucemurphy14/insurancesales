@@ -43,8 +43,9 @@ public class PolicyDAO implements DAO<Policy> {
     public  void create(Policy policy) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+        System.out.println(username);
 
-        String sql = "insert into policy(client_id,policy_type, /* term_price,*/ start_date) values ((select client_id from client where username = 'rfw'/*" +  "'" + username + "'" + "*/)" + " ,?, (select NOW()))" ;
+        String sql = "insert into policy(client_id,policy_type, /* term_price,*/ start_date) values ((select client_id from client where username =" +  "'" + username + "'" + ")" + " ,?, (select NOW()))" ;
         //String sql = "insert into policy(client_id, policy_type, term_price, start_date) values (?,?,?, ?)";
         jdbcTemplate.update(sql,/* policy.getClient_id(),*/ policy.getPolicy_type()/*, policy.getTerm_price()*//*, policy.getStart_date()*/);
 
@@ -70,12 +71,45 @@ public class PolicyDAO implements DAO<Policy> {
 
     @Override
     public void update(Policy policy, int ID) {
-        String sql = "update policy set policy_number =  ?, client_id = ?, policy_type = ?, term_price = ?, start_date = ? WHERE policy_number = ?";
-        jdbcTemplate.update(sql,policy.getPolicy_number(), policy.getClient_id(), policy.getPolicy_type(), policy.getTerm_price(), policy.getStart_date());
+        //String sql = "update policy set policy_number =  ?, client_id = ?, policy_type = ?, term_price = ?, start_date = ? WHERE policy_number = ?";
+        String sql = "update policy set term_price = ? WHERE policy_number = ?";
+
+        //jdbcTemplate.update(sql,policy.getPolicy_number(), policy.getClient_id(), policy.getPolicy_type(), policy.getTerm_price(), policy.getStart_date());
+        jdbcTemplate.update(sql,policy.getTerm_price(), policy.getPolicy_number());
+    }
+
+    public void updateTermPrice(float termPrice, int policyID) {
+        //String sql = "update policy set policy_number =  ?, client_id = ?, policy_type = ?, term_price = ?, start_date = ? WHERE policy_number = ?";
+        String sql = "update policy set term_price = ? WHERE policy_number = ?";
+
+        //jdbcTemplate.update(sql,policy.getPolicy_number(), policy.getClient_id(), policy.getPolicy_type(), policy.getTerm_price(), policy.getStart_date());
+        jdbcTemplate.update(sql,termPrice, policyID);
+    }
+
+    public void update(Float termPrice) {
+        //String sql = "update policy set policy_number =  ?, client_id = ?, policy_type = ?, term_price = ?, start_date = ? WHERE policy_number = ?";
+        String sql = "update policy set term_price = ? WHERE policy_number = (select MAX(policy.policy_number))";
+
+        //jdbcTemplate.update(sql,policy.getPolicy_number(), policy.getClient_id(), policy.getPolicy_type(), policy.getTerm_price(), policy.getStart_date());
+        jdbcTemplate.update(sql,termPrice);
+
     }
 
     @Override
     public void delete(int id) {
         jdbcTemplate.update("delete from policy where policy_number = ?", id);
+    }
+
+
+    public int returnNewestPolicyNumber() {
+        //String sql = "update policy set policy_number =  ?, client_id = ?, policy_type = ?, term_price = ?, start_date = ? WHERE policy_number = ?";
+        String sql = "select MAX(policy_number) from policy";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+    public String returnNewestPolicyType() {
+        //String sql = "update policy set policy_number =  ?, client_id = ?, policy_type = ?, term_price = ?, start_date = ? WHERE policy_number = ?";
+        String sql = "select policy_type from policy where policy_number = (select MAX(policy_number) from policy)";
+        return jdbcTemplate.queryForObject(sql, String.class);
     }
 }

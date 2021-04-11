@@ -44,7 +44,16 @@ public class Auto_PolicyJDbcdao implements DAO<Auto_Policy> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         String sql = "Insert into Auto_policy(policy_number, client_id, VIN_NUMBER)" +
-                " values((SELECT MAX(policy_number) FROM POLICY) ,(select client_id from client where username = 'rfw'/*" +  "'" + username + "'" + "*/)"+ " , SELECT MAX(VIN_NUMBER) from home)";
+                " values((SELECT MAX(policy_number) FROM POLICY) ,(select client_id from client where username = 'rfw'/*" +  "'" + username + "'" + "*/)"+ " , (SELECT MAX(VIN_NUMBER) from car))";
+        jdbcTemplate.update(sql/*,auto_policy.getPolicy_number(), auto_policy.getClient_id(),auto_policy.getVIN_number()*/);
+    }
+
+    public void createNoParam() {
+        //String sql = "insert into auto_policy(policy_number, client_id, VIN_NUMBER) values (?,?,?)";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        String sql = "Insert into Auto_policy(policy_number, client_id, VIN_NUMBER)" +
+                " values((SELECT MAX(policy_number) FROM POLICY) ,(select client_id from client where username = " +  "'" + username + "'" + ")"+ " , (SELECT MAX(VIN_NUMBER) from car))";
         jdbcTemplate.update(sql/*,auto_policy.getPolicy_number(), auto_policy.getClient_id(),auto_policy.getVIN_number()*/);
     }
 

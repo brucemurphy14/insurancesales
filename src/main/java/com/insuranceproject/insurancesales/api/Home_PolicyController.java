@@ -20,8 +20,10 @@ public class Home_PolicyController {
     }
 
     @PostMapping
-    public void addAuto_Policy(@RequestBody Home_Policy home_policy) {
-        homePolicyJDbcdao.create(home_policy);
+    public void addHome_Policy(/*@RequestBody Home_Policy home_policy*/) {
+      //  homePolicyJDbcdao.create(home_policy);
+          homePolicyJDbcdao.createNoParam();
+
     }
 
     @GetMapping

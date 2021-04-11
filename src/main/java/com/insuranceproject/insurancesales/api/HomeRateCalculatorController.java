@@ -26,6 +26,8 @@ public class HomeRateCalculatorController {
         return policy_factory.generateHomeRate(homeRiskFactors.get(id).orElse(null));
     }
 
+
+
     @PostMapping()
     public HomeRiskFactors getHomeQuotePremium(@RequestBody HomeRiskFactors homeRiskFactors) {
         return policy_factory.generateHomeRate(homeRiskFactors);

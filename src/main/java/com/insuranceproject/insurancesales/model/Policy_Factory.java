@@ -6,6 +6,8 @@ import com.insuranceproject.insurancesales.dao.HomeRatesJDBCDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 /**
  * This class calculates the premium cost of Auto/Home insurance rates.
  * Uses the DAO for both rates tables to compare to inputted values.
@@ -18,10 +20,12 @@ public class Policy_Factory{
     @Autowired
     private HomeRatesJDBCDAO homeRatesTable;
 
-    public  DriverRiskFactors generateAutoRate(DriverRiskFactors driverRiskFactors){
-        float totalPolicyCost;
+    public DriverRiskFactors generateAutoRate(DriverRiskFactors driverRiskFactors){
+        float totalPolicyCost = 0;
         float basePremiumRate ;
-        int driverAge = driverRiskFactors.getDriverAge();
+
+        int driverAge = 0;
+        driverAge = driverRiskFactors.getDriverAge();
         float driverAgeRate = 0;
         int vehicleAge = driverRiskFactors.getVehicleAge();
         float vehicleAgeRate = 0;
@@ -37,7 +41,7 @@ public class Policy_Factory{
             driverAgeRate = autoRatesTable.list().get(0).getDriver_age_other_rate();
         }
 
-        if (vehicleAge < 200){
+        if (vehicleAge > 200){
             vehicleAgeRate = autoRatesTable.list().get(0).getCar_11_years_or_older_rate();
         }
         if (accidents_last_5_years == 0){
@@ -50,17 +54,17 @@ public class Policy_Factory{
             accidentRatingLast5Years = 2.5f;
         }
 
-        /*
+
         System.out.println(basePremiumRate);
         System.out.println(driverAgeRate);
         System.out.println(accidentRatingLast5Years);
         System.out.println(vehicleAgeRate);
-        */
+
         totalPolicyCost = basePremiumRate * driverAgeRate * accidentRatingLast5Years * vehicleAgeRate;
        // System.out.println(totalPolicyCost);
         driverRiskFactors.setCalculatedPremium(totalPolicyCost);
 
-        return driverRiskFactors;
+        return  driverRiskFactors;
     }
 
 
@@ -75,14 +79,14 @@ public class Policy_Factory{
         String heatingType;
         float heatingtypeRate = 0;
 
-      //  String dwellingType;
+        String dwellingType;
         float dwellingTypeRate = 0;
 
 
         basePremiumRate = homeRatesTable.list().get(0).getBase_premium_rate();
         homeAge = homeRiskFactors.getHomeAge();
         heatingType = homeRiskFactors.getHeatingType();
-        String dwellingType = homeRiskFactors.getDwellingType();
+        dwellingType = homeRiskFactors.getDwellingType();
 
         if (homeAge < 25){
             homeAgeRate = homeRatesTable.list().get(0).getHome_age_under_25_rate();
@@ -132,6 +136,11 @@ public class Policy_Factory{
             dwellingTypeRate = homeRatesTable.list().get(0).getDwelling_type_single_attached_rate();
         }
 
+
+         System.out.println(dwellingTypeRate);
+         System.out.println(dwellingType);
+         System.out.println(basePremiumRate);
+         System.out.println(heatingtypeRate);
 
         totalPremiumCost =  basePremiumRate *  homeAgeRate * heatingtypeRate * dwellingTypeRate;
         homeRiskFactors.setCalculatedPremium(totalPremiumCost);

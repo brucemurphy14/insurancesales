@@ -1,5 +1,7 @@
 package com.insuranceproject.insurancesales.api;
 
+import com.insuranceproject.insurancesales.dao.ClientJDBCDAO;
+import com.insuranceproject.insurancesales.dao.PolicyDAO;
 import com.insuranceproject.insurancesales.dao.Policy_HolderJDBCDAO;
 import com.insuranceproject.insurancesales.model.Policy_Holder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +12,37 @@ import java.util.List;
 @RestController
 public class Policy_holderController {
     private final Policy_HolderJDBCDAO policy_holderJDBCDAO;
+    private final PolicyDAO policyDAO;
+    private final HomeRateCalculatorController homeRateCalculatorController;
+    private final PolicyPriceCreator policyPriceCreator;
+    private final ClientJDBCDAO clientjdbcdao;
 
     @Autowired
-    public Policy_holderController(Policy_HolderJDBCDAO policy_holderJDBCDAO) {
+    public Policy_holderController(Policy_HolderJDBCDAO policy_holderJDBCDAO, PolicyDAO policyDAO, HomeRateCalculatorController homeRateCalculatorController, PolicyPriceCreator policyPriceCreator, ClientJDBCDAO clientjdbcdao) {
         this.policy_holderJDBCDAO = policy_holderJDBCDAO;
+        this.policyDAO = policyDAO;
+        this.homeRateCalculatorController = homeRateCalculatorController;
+        this.policyPriceCreator = policyPriceCreator;
+        this.clientjdbcdao = clientjdbcdao;
     }
 
     @PostMapping
-    public void addAuto_Policy(@RequestBody Policy_Holder policy_holder) {
-        policy_holderJDBCDAO.create(policy_holder);
+    public void addPolicyHolder(/*@RequestBody Policy_Holder policy_holder*/) {
+     //   policy_holderJDBCDAO.createNoParam(policy_holder);
+        policy_holderJDBCDAO.createNoParam();
+
+
+        String policyType = policyDAO.returnNewestPolicyType();
+        int policyNumber = policyDAO.returnNewestPolicyNumber();
+       // System.out.println(policyType);
+       // System.out.println(policyNumber);
+        policyPriceCreator.updatePolicyTableTermPrice(policyType, policyNumber);
+        policyPriceCreator.updateClientPolicyNumber(clientjdbcdao.returnCurrentClientID(),policyType,policyNumber);
+
+    }
+
+    public void insertPolicyPremium(float premium){
+        policyDAO.update(premium);
     }
 
     @GetMapping

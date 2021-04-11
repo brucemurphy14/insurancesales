@@ -24,6 +24,7 @@ public class Home_PolicyJDBCDAO implements DAO<Home_Policy> {
     RowMapper<Home_Policy> rowMapper = (rs, rowNum) -> {
         Home_Policy homePolicy = new Home_Policy();
         homePolicy.setPolicy_number(rs.getInt("policy_number"));
+        homePolicy.setClient_id(rs.getInt("client_id"));
         homePolicy.setHome_id(rs.getInt("home_id"));
         return homePolicy;
     };
@@ -43,11 +44,26 @@ public class Home_PolicyJDBCDAO implements DAO<Home_Policy> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         String sql = "Insert into Home_policy(policy_number, client_id, home_id)" +
-                " values((SELECT MAX(policy_number) FROM POLICY) ,(select client_id from client where username = 'rfw'/*" +  "'" + username + "'" + "*/)"+ " , SELECT MAX(HOME_ID) from home)";
+                " values((SELECT MAX(policy_number) FROM POLICY) ,(select client_id from client where username = 'rfw'/*" +  "'" + username + "'" + "*/)"+ " , (SELECT MAX(HOME_ID) from home))";
 
 
         jdbcTemplate.update(sql /*home_policy.getPolicy_number()*//* ,home_policy.getClient_id(),*//* home_policy.getHome_id()*/ );
     }
+
+    public void createNoParam() {
+     /*   String sql = "Insert into Home_policy(policy_number, client_id, home_id)" +
+                 " values(?,?,?)";*/
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        String sql = "Insert into Home_policy(policy_number, client_id, home_id)" +
+                " values((SELECT MAX(policy_number) FROM POLICY) ,(select client_id from client where username =" +  " '" + username + "'" + ")"+ ", (SELECT MAX(HOME_ID) from home))";
+
+
+        jdbcTemplate.update(sql /*home_policy.getPolicy_number()*//* ,home_policy.getClient_id(),*//* home_policy.getHome_id()*/ );
+    }
+
+
+
 
     @Override
     public int createAndReturnAutoKey(Home_Policy home_policy) {

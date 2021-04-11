@@ -43,7 +43,11 @@ public class PolicyController {
     }
 
     @PutMapping(path = "policy/{id}")
-    public void updateClient(@PathVariable("id") int id, @RequestBody Policy policyToUpdate) {
+    public void updatePolicyPrice(@PathVariable("id") int id, @RequestBody Policy policyToUpdate) {
         policyJDBCDAO.update(policyToUpdate, id);
+    }
+
+    public void updatePolicyTermPrice(float termPrice) {
+        policyJDBCDAO.update(termPrice);
     }
 }

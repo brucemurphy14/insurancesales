@@ -20,8 +20,10 @@ public class Auto_PolicyController {
     }
 
     @PostMapping
-    public void addAuto_Policy(@RequestBody Auto_Policy auto_policy) {
-        autoPolicyJDbcdao.create(auto_policy);
+    public void addAuto_Policy(/*@RequestBody Auto_Policy auto_policy*/) {
+     //   autoPolicyJDbcdao.create(auto_policy);
+        autoPolicyJDbcdao.createNoParam();
+
     }
 
     @GetMapping

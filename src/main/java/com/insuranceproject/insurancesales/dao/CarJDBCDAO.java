@@ -41,7 +41,7 @@ public class CarJDBCDAO implements DAO<Car>{
 
     @Override
     public  void create(Car car) {
-        String sql = "insert into CAR(vehicle_make, vehicle_model, vehicle_year) values (?,?,?)";
+        String sql = "insert into CAR(vehicle_make, vehicle_model, vehicle_year, policy_number) values (?,?,?, (SELECT MAX(policy_number) from policy))";
         jdbcTemplate.update(sql, car.getVehicle_make(), car.getVehicle_model(), car.getVehicle_year());
 
     }
