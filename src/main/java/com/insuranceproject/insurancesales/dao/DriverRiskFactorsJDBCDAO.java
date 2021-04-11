@@ -69,7 +69,7 @@ public class DriverRiskFactorsJDBCDAO implements DAO<DriverRiskFactors> {
         //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //String username = authentication.getName();
         String sql = """              
-                select location_type, TIMESTAMPDIFF (YEAR, CLIENT_Birthday, CURDATE() ) as client_age , vehicle_year,  (
+                select DISTINCT location_type, TIMESTAMPDIFF (YEAR, CLIENT_Birthday, CURDATE() ) as client_age , vehicle_year,  (
                 select
         COUNT(AT_FAULT)
         from
@@ -81,8 +81,8 @@ public class DriverRiskFactorsJDBCDAO implements DAO<DriverRiskFactors> {
    )
         as at_fault_accident_count, vehicle_worth
         from CLIENT, accident_listing main, policy_holder, policy, auto_policy, car, address
-        WHERE main.client_id = client.client_id /*AND client.auto_policy_number = policy_holder.policy_number*/ AND policy.policy_number = policy_holder.policy_number
-        AND auto_policy.policy_number = policy.policy_number AND auto_policy.VIN_NUMBER = CAR.vin_number and client.client_id = ? and address.address_id = client.address_id""";
+        WHERE main.client_id = client.client_id AND client.auto_policy_number = policy_holder.policy_number AND policy.policy_number = policy_holder.policy_number
+        AND auto_policy.policy_number = policy.policy_number AND auto_policy.VIN_NUMBER = CAR.vin_number and  client.client_id = ? and address.address_id = client.address_id""";
 
         DriverRiskFactors driverRiskFactors = null;
         try {

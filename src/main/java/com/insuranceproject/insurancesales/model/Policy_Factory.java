@@ -22,7 +22,7 @@ public class Policy_Factory{
 
     public DriverRiskFactors generateAutoRate(DriverRiskFactors driverRiskFactors){
         float totalPolicyCost = 0;
-        float basePremiumRate ;
+        float basePremiumRate = 0;
 
         int driverAge = 0;
         driverAge = driverRiskFactors.getDriverAge();
@@ -44,6 +44,7 @@ public class Policy_Factory{
         if (vehicleAge > 200){
             vehicleAgeRate = autoRatesTable.list().get(0).getCar_11_years_or_older_rate();
         }
+
         if (accidents_last_5_years == 0){
             accidentRatingLast5Years = 1.00f;
         }
@@ -66,7 +67,6 @@ public class Policy_Factory{
 
         return  driverRiskFactors;
     }
-
 
 
     public HomeRiskFactors generateHomeRate(HomeRiskFactors homeRiskFactors){

@@ -38,10 +38,10 @@ public class PolicyPriceCreator {
 
     public void updatePolicyTableTermPrice(String policyType, int policy_number){
 
-
         if (policyType.equals("Home")){
+            int client_id = clientJDBCDAO.returnCurrentClientID();
 
-            Optional<HomeRiskFactors> homeRiskFactors = homeRiskFactorsDAO.get(1);
+            Optional<HomeRiskFactors> homeRiskFactors = homeRiskFactorsDAO.get(client_id);
            // System.out.println(homeRiskFactors.isPresent());
 
           HomeRiskFactors calculatedRate = policy_factory.generateHomeRate(homeRiskFactors.orElse(null));
@@ -51,7 +51,8 @@ public class PolicyPriceCreator {
 
         }
         else if (policyType.equals("Auto")){
-            Optional<DriverRiskFactors> driverRiskFactors =  driverRiskFactorsJDBCDAO.get(1);
+            int client_id = clientJDBCDAO.returnCurrentClientID();
+            Optional<DriverRiskFactors> driverRiskFactors =  driverRiskFactorsJDBCDAO.get(client_id);
             System.out.println(driverRiskFactors.isPresent());
             DriverRiskFactors calculatedRate = policy_factory.generateAutoRate(driverRiskFactors.orElse(null));
             System.out.println(calculatedRate.getCalculatedPremium());

@@ -28,16 +28,14 @@ public class Policy_holderController {
 
     @PostMapping
     public void addPolicyHolder(/*@RequestBody Policy_Holder policy_holder*/) {
-     //   policy_holderJDBCDAO.createNoParam(policy_holder);
+       // policy_holderJDBCDAO.createNoParam(policy_holder);
         policy_holderJDBCDAO.createNoParam();
-
-
         String policyType = policyDAO.returnNewestPolicyType();
         int policyNumber = policyDAO.returnNewestPolicyNumber();
-       // System.out.println(policyType);
-       // System.out.println(policyNumber);
-        policyPriceCreator.updatePolicyTableTermPrice(policyType, policyNumber);
+        System.out.println(policyType);
+        System.out.println(policyNumber);
         policyPriceCreator.updateClientPolicyNumber(clientjdbcdao.returnCurrentClientID(),policyType,policyNumber);
+        policyPriceCreator.updatePolicyTableTermPrice(policyType, policyNumber);
 
     }
 
