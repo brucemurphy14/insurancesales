@@ -1,6 +1,6 @@
 /*sets up the auto rating and home rating rates*/
 insert into auto_rating VALUES (1,2.0,1, 1.5, 1.25, 1.0,  1.0, 1.25, 2.5,1.0,1.0,1.0, 750.0);
-insert into home_rating VALUES (1, 1.0, 0.75, 1.0, 1.15, 1.5,1.5,1.5, 1.0, 2.0, 1.25,1.0,1.0, 500, 1.0);
+insert into home_rating VALUES (1, 1.0, 0.75, 1.0, 1.15, 1,1.25,1.5, 1.0, 2.0, 1.25,1.0,1.0, 500, 1.0);
 
 /*creates login credentials*/
 insert into users (username, password, role, enabled) values ('rfw', '1', 'CLIENT', TRUE);
@@ -28,7 +28,7 @@ insert into accident_listing (client_id, accident_date, at_fault) VALUES (1,'201
 
 
 /* details about the insured house/car */
-INSERT into home (policy_number, age_since_built, type_of_dwelling, heating_type) values (1, 10.0, 'Detached', 'Oil');
+INSERT into home (policy_number, date_built, type_of_dwelling, heating_type) values (1, '1980-1-1', 'Detached', 'Oil');
 insert into car (policy_number,vehicle_worth, vehicle_make, vehicle_model, vehicle_year) VALUES (1, 55000, "Honda", "Accord", 1999);
 
 /*
@@ -37,9 +37,13 @@ insert into car (policy_number, vehicle_worth, vehicle_make, vehicle_model, vehi
 */
 
 /* creates the actual policy and links to client. decides if it is a home/auto policy */
-insert into policy(client_id, policy_type, term_price) VALUES (1, "Home", 0);
+
+insert into policy( start_date, client_id, policy_type, term_price) VALUES ( '2020-1-1', 1, "Auto", 5000);
+
 insert into home_policy(policy_number, client_id, home_id) VALUES (1, 1,1);
 insert into auto_policy(policy_number, client_id, vin_number) VALUES (1,1,1);
+
+
 
 insert into policy_holder (client_id, policy_number) VALUES (1,1);
 

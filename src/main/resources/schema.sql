@@ -17,22 +17,24 @@ CREATE TABLE ADDRESS (
                          province VARCHAR(32),
                          city VARCHAR(20),
                          zip_code VARCHAR(6),
-                         location_type varchar(20) CHECK (location_type = 'Dense Urban' OR location_type = 'Urban' OR location_type = 'Rural'),
+                         location_type VARCHAR(32),
                          PRIMARY KEY (address_id)
 );
 
 CREATE TABLE users (
+                       user_id INT NOT NULL AUTO_INCREMENT,
                        username VARCHAR(45) NOT NULL,
                        password VARCHAR(64) NOT NULL,
                        role VARCHAR(45) NOT NULL,
                        enabled TINYINT(4) DEFAULT NULL,
-                       PRIMARY KEY (`username`)
+                       PRIMARY KEY (`username`),
+                       UNIQUE(user_id, username)
 );
 
 CREATE TABLE Home (
                       HOME_ID INT NOT NULL AUTO_INCREMENT,
                       policy_number INT,
-                      age_since_built FLOAT(2),
+                      date_built DATE,
                       type_of_dwelling VARCHAR(20),
                       heating_type VARCHAR(17),
                       PRIMARY KEY (`HOME_ID`)
@@ -90,6 +92,7 @@ CREATE TABLE POLICY (
                         client_id INT NOT NULL,
                         policy_type VARCHAR(32),
                         term_price float,
+                        start_date date,
                         primary key (policy_number)
 );
 
@@ -100,7 +103,7 @@ CREATE TABLE Home_Policy (
                              PRIMARY KEY (client_id , home_id),
                              FOREIGN KEY (home_id)
                                  REFERENCES Home (home_id),
-                             FOREIGN KEY (client_id)
+                             FOREIGN KEY (policy_number)
                                  REFERENCES POLICY (POLICY_NUMBER)
 );
 
@@ -111,7 +114,7 @@ CREATE TABLE Auto_Policy (
                              PRIMARY KEY (client_id , policy_number),
                              FOREIGN KEY (VIN_NUMBER)
                                  REFERENCES Car (VIN_NUMBER),
-                             FOREIGN KEY (client_id)
+                             FOREIGN KEY (policy_number)
                                  REFERENCES POLICY (policy_number)
 );
 
