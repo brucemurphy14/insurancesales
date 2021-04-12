@@ -23,6 +23,7 @@ public class Policy_Factory{
     public DriverRiskFactors generateAutoRate(DriverRiskFactors driverRiskFactors){
         float totalPolicyCost = 0;
         float basePremiumRate = 0;
+        float locationRate = 0;
 
         int driverAge = 0;
         driverAge = driverRiskFactors.getDriverAge();
@@ -34,6 +35,9 @@ public class Policy_Factory{
         float accidentRatingLast5Years = 0;
         basePremiumRate = autoRatesTable.list().get(0).getBase_premium_rate();
 
+        String locationType = driverRiskFactors.getLocation_type();
+
+
         if (driverAge <= 25){
             driverAgeRate = autoRatesTable.list().get(0).getDriver_age_25_or_under_rate();
         }
@@ -41,9 +45,22 @@ public class Policy_Factory{
             driverAgeRate = autoRatesTable.list().get(0).getDriver_age_other_rate();
         }
 
-        if (vehicleAge > 200){
+        switch (locationType) {
+            case "Dense Urban" -> locationRate = autoRatesTable.list().get(0).getLocation_rate_dense_urban();
+            case "Urban" -> locationRate = autoRatesTable.list().get(0).getLocation_rate_urban();
+            case "Rural" -> locationRate = autoRatesTable.list().get(0).getLocation_rate_rural();
+        }
+
+        /*
+        if (vehicleAge > 10){
             vehicleAgeRate = autoRatesTable.list().get(0).getCar_11_years_or_older_rate();
         }
+
+        else{
+            vehicleAgeRate = 0.25f;
+        }
+
+*/
 
         if (accidents_last_5_years == 0){
             accidentRatingLast5Years = 1.00f;
@@ -51,7 +68,7 @@ public class Policy_Factory{
         else if (accidents_last_5_years == 1){
             accidentRatingLast5Years = 1.25f;
         }
-        else if (accidents_last_5_years == 2){
+        else if (accidents_last_5_years >= 2){
             accidentRatingLast5Years = 2.5f;
         }
 
@@ -61,7 +78,7 @@ public class Policy_Factory{
         System.out.println(accidentRatingLast5Years);
         System.out.println(vehicleAgeRate);
 
-        totalPolicyCost = basePremiumRate * driverAgeRate * accidentRatingLast5Years * vehicleAgeRate;
+        totalPolicyCost = basePremiumRate * driverAgeRate * accidentRatingLast5Years *locationRate/* vehicleAgeRate*/;
        // System.out.println(totalPolicyCost);
         driverRiskFactors.setCalculatedPremium(totalPolicyCost);
 
