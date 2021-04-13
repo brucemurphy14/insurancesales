@@ -21,7 +21,6 @@ public class PolicyDAO implements DAO<Policy> {
     RowMapper<Policy> rowMapper = (rs, rowNum) -> {
         Policy policy = new Policy();
         policy.setPolicy_number(rs.getInt("policy_number"));
-
         policy.setClient_id(rs.getInt("client_id"));
         policy.setPolicy_type(rs.getString("policy_type"));
         policy.setTerm_price(rs.getFloat("term_price"));
@@ -50,6 +49,33 @@ public class PolicyDAO implements DAO<Policy> {
         jdbcTemplate.update(sql,/* policy.getClient_id(),*/ policy.getPolicy_type()/*, policy.getTerm_price()*//*, policy.getStart_date()*/);
 
     }
+
+    public Policy getUserAutoPolicy(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        String sql = "select client_id, policy_number,policy_type, term_price, start_date FROM policy where client_id = (select client_id from client where username =" +  "'" + username + "'" + ")" + "AND policy_type = 'Auto'";
+        try {
+            return jdbcTemplate.queryForObject(sql, rowMapper);
+        }
+        catch (DataAccessException e){
+            return null;
+        }
+    }
+
+    public Policy getUserHomePolicy(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        String sql = "select client_id, policy_number,policy_type, term_price, start_date FROM policy where client_id = (select client_id from client where username =" +  "'" + username + "'" + ")" + "AND policy_type = 'Home'";
+        try {
+            return jdbcTemplate.queryForObject(sql, rowMapper);
+        }
+        catch (DataAccessException e){
+            return null;
+        }
+    }
+
 
     @Override
     public int createAndReturnAutoKey(Policy policy) {

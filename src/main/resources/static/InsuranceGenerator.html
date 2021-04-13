@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Policy Creator</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        html, body {
+            min-height: 100%;
+        }
+        body, div, form, input, select, textarea, label, p {
+            padding: 0;
+            margin: 0;
+            outline: none;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 14px;
+            color: #666;
+            line-height: 22px;
+        }
+        h1 {
+            position: absolute;
+            margin: 0;
+            font-size: 40px;
+            color: #fff;
+            z-index: 2;
+            line-height: 83px;
+        }
+        textarea {
+            width: calc(100% - 12px);
+            padding: 5px;
+        }
+        .testbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: inherit;
+            padding: 20px;
+        }
+        form {
+            width: 100%;
+            padding: 20px;
+            border-radius: 6px;
+            background: #fff;
+            box-shadow: 0 0 8px #006622;
+        }
+        .banner {
+            position: relative;
+            height: 300px;
+            background-image: url("/uploads/media/default/0001/02/e2502bb5e1dab7d5cc9b011c745033821aad632c.jpeg");
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .banner::after {
+            content: "";
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        input, select, textarea {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input {
+            width: calc(100% - 10px);
+            padding: 5px;
+        }
+        input[type="date"] {
+            padding: 4px 5px;
+        }
+        textarea {
+            width: calc(100% - 12px);
+            padding: 5px;
+        }
+        .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder {
+            color:  #006622;
+        }
+        .item input:hover, .item select:hover, .item textarea:hover {
+            border: 1px solid transparent;
+            box-shadow: 0 0 3px 0  #006622;
+            color: #006622;
+        }
+        .item {
+            position: relative;
+            margin: 10px 0;
+        }
+        .item span {
+            color: red;
+        }
+        input[type="date"]::-webkit-inner-spin-button {
+            display: none;
+        }
+        .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            font-size: 20px;
+            color: #00b33c;
+        }
+        .item i {
+            right: 1%;
+            top: 30px;
+            z-index: 1;
+        }
+        .week {
+            display:flex;
+            justfiy-content:space-between;
+        }
+        .colums {
+            display:flex;
+            justify-content:space-between;
+            flex-direction:row;
+            flex-wrap:wrap;
+        }
+        .colums div {
+            width:48%;
+        }
+        [type="date"]::-webkit-calendar-picker-indicator {
+            right: 1%;
+            z-index: 2;
+            opacity: 0;
+            cursor: pointer;
+        }
+        input[type=radio], input[type=checkbox]  {
+            display: none;
+        }
+        label.radio {
+            position: relative;
+            display: inline-block;
+            margin: 5px 20px 15px 0;
+            cursor: pointer;
+        }
+        .question span {
+            margin-left: 30px;
+        }
+        .question-answer label {
+            display: block;
+        }
+        label.radio:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
+        input[type=radio]:checked + label:before, label.radio:hover:before {
+            border: 2px solid  #006622;
+        }
+        label.radio:after {
+            content: "";
+            position: absolute;
+            top: 6px;
+            left: 5px;
+            width: 8px;
+            height: 4px;
+            border: 3px solid  #006622;
+            border-top: none;
+            border-right: none;
+            transform: rotate(-45deg);
+            opacity: 0;
+        }
+        input[type=radio]:checked + label:after {
+            opacity: 1;
+        }
+        .flax {
+            display:flex;
+            justify-content:space-around;
+        }
+        .btn-block {
+            margin-top: 10px;
+            text-align: center;
+        }
+        button {
+            width: 150px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background:  #006622;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background:  #00b33c;
+        }
+        @media (min-width: 568px) {
+            .name-item, .city-item {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            .name-item input, .name-item div {
+                width: calc(50% - 20px);
+            }
+            .name-item div input {
+                width:97%;}
+            .name-item div label {
+                display:block;
+                padding-bottom:5px;
+            }
+        }
+
+        .topnav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        /* Style the links inside the navigation bar */
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        /* Change the color of links on hover */
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Add a color to the active/current link */
+        .topnav a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+
+        }
+
+
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Register</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p><b>User Account Registration</b></p>
+        <div class="item">
+            <label for="username"> User Name<span>*</span></label>
+            <input id="username" type="text" name="username" />
+        </div>
+        <div class="item">
+            <label for="password">Password<span>*</span></label>
+            <input id="password" type="text" name="password" />
+            <button type="submit" href="/">Register</button>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="testbox">
+    <form>
+        <div class="banner">
+            <h1>AutoInsurancePolicyCreatePage</h1>
+        </div>
+        <br/>
+        <div class="topnav">
+            <a  href="index.html">Home</a>
+            <a class="active" href="/dashboard.html">Dashboard</a>
+            <a href="#contact">Contact</a>
+            <a href="/login">Login</a>
+            <a href="/logout">Logout</a>
+
+
+
+
+        </div>
+
+
+        <br>
+        <fieldset>
+            <legend></legend>
+
+            <hr>
+
+
+            <p><b>User Account</b></p>
+            <div class="item">
+                <label for="username"> User Name<span>*</span></label>
+                <input id="username" type="text" name="username" />
+            </div>
+            <div class="item">
+                <label for="password">Password<span>*</span></label>
+                <input id="password" type="text" name="password" />
+            </div>
+            <hr>
+
+            <p><b>Address</b></p>
+            <div class="item">
+                <label for="street_address"> Street Address:<span>*</span></label>
+                <input id="streetAddress" type="text" name="street_address" />
+            </div>
+            <div class="item">
+                <label for="province">Province<span>*</span></label>
+                <input id="province" type="text" name="province" />
+            </div>
+            <div class="item">
+                <label for="city">City<span>*</span></label>
+                <input id="city" type="text" name="city" />
+            </div>
+            <div class="item">
+                <label for="zip_code">ZIP Code<span>*</span></label>
+                <input id="zip_code" type="text" name="zip_code"/>
+            </div>
+            <label>What type of area is this?<span>*</span></label>
+            <select id = "locationType">
+                <option selected value="" disabled selected></option>
+                <option value="Dense Urban" >Dense Urban</option>
+                <option value="Urban">Urban</option>
+                <option value="Rural">Rural</option>
+            </select>
+
+            <hr>
+
+
+            <p><b>Client Info</b></p>
+            <div class="item">
+                <label for="first_name"> First name<span>*</span></label>
+                <input id="first_name" type="text" name="first_name" />
+            </div>
+            <div class="item">
+                <label for="last_name">last name<span>*</span></label>
+                <input id="last_name" type="text" name="last_name" />
+            </div>
+            <div class="item">
+                <label for="birthday">Birthday<span>*</span></label>
+                <input id="birthday" type="text" name="birthday" />
+            </div>
+            <hr>
+
+
+            <p><b>Accident Listing</b></p>
+            <div class="item">
+                <label for="accident_date"> Accident date<span>*</span></label>
+                <input id="accident_date" type="text" name="accident_date" />
+            </div>
+            <div class="item">
+                <label for="atFault">Were you at fault for this accident?<span>*</span></label>
+                <input id="atFault" type="text" name="atFault" />
+            </div>
+
+            <hr>
+
+            <p><b>Policy Type</b></p>
+            <select id = "policyType">
+                <option selected value="" disabled selected></option>
+                <option value="Home" >Home</option>
+                <option value="Auto">Auto</option>
+            </select>
+
+            <hr>
+
+
+            <p><b>Vehicle Details</b></p>
+            <div class="item">
+                <label for="vehicle_make"> Vehicle Make<span>*</span></label>
+                <input id="vehicle_make" type="text" name="vehicle_make" />
+            </div>
+            <div class="item">
+                <label for="vehicleModel">Vehicle Model<span>*</span></label>
+                <input id="vehicleModel" type="text" name="vehicleModel" />
+            </div>
+            <div class="item">
+                <label for="vehicleYear">Vehicle Year<span>*</span></label>
+                <input id="vehicleYear" type="text" name="vehicleYear" />
+            </div>
+
+            <hr>
+
+
+
+
+            <div>
+                <span id="result"></span>
+                <button type="calc" id="calc1"  onclick="fire_ajax_submit_address()">Calculate</button>
+            </div>
+        </fieldset>
+        <br/>
+
+        <div class="btn-block">
+            <button type="submit" href="/">Submit</button>
+        </div>
+    </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+
+<script>
+
+
+    $(document).ready(function() {
+
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+            $("#myModal").css("z-index", "1500");
+
+        }
+
+// When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+// When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    });
+
+    $("#calc1").click(function(event){
+
+        //stop submit the form, we will get it manually.
+        event.preventDefault();
+        //   fire_ajax_submit_address();
+    });
+
+
+
+    function fire_ajax_submit_address() {
+
+
+        var streetAddress = $("#streetAddress").val();
+        var province = $("#province").val();
+        var city = $("#city").val();
+        var zip_code = $("#zip_code").val();
+        var locationType = $("#locationType").val();
+        var addressData = {
+            street_address: streetAddress,
+            province: province,
+            city: city,
+            zip_code: zip_code,
+            location_type: locationType
+        }
+
+        var jsonAddressData = JSON.stringify(addressData);
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "http://localhost:8080/api/address",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: jsonAddressData,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                console.log(data);
+                $("#result1").text(data);
+            },
+            error: function (e) {
+
+                //  console.log( e );
+
+
+                //  var json = "<h4>Ajax Response</h4>&lt;pre&gt;"
+                //       + e.responseText + "&lt;/pre&gt;";
+                //  $('#feedback').html(json);
+
+                //  console.log("ERROR : ", e);
+                //  $("#btn-search").prop("disabled", false);
+
+            }
+        });
+    }
+
+
+
+
+</script>

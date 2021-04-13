@@ -37,6 +37,16 @@ public class PolicyController {
                 .orElse(null);
     }
 
+    @GetMapping(path = "/auto")
+    public Policy getAutoPolicyByLoggedinUser() {
+        return policyJDBCDAO.getUserAutoPolicy();
+    }
+
+    @GetMapping(path = "/home")
+    public Policy getHomePolicyByLoggedinUser() {
+        return policyJDBCDAO.getUserHomePolicy();
+    }
+
     @DeleteMapping(path = "policy/{id}")
     public void deletePolicyByID(@PathVariable("id") int id) {
         policyJDBCDAO.delete(id);

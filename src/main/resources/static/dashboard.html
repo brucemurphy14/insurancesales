@@ -232,7 +232,64 @@ cursor: pointer;
 .topnav a.active {
   background-color: #4CAF50;
   color: white;
-}        
+}
+
+      table.blueTable {
+          background-color: #EEEEEE;
+          width: 100%;
+          text-align: left;
+          border-collapse: collapse;
+      }
+      table.blueTable td, table.blueTable th {
+          border: 1px solid #AAAAAA;
+          padding: 3px 2px;
+      }
+      table.blueTable tbody td {
+          font-size: 13px;
+      }
+      table.blueTable tr:nth-child(even) {
+          background: #D0E4F5;
+      }
+      table.blueTable thead {
+          background: #DDDDDD;
+          background: -moz-linear-gradient(top, #e5e5e5 0%, #e0e0e0 66%, #DDDDDD 100%);
+          background: -webkit-linear-gradient(top, #e5e5e5 0%, #e0e0e0 66%, #DDDDDD 100%);
+          background: linear-gradient(to bottom, #e5e5e5 0%, #e0e0e0 66%, #DDDDDD 100%);
+          border-bottom: 2px solid #444444;
+      }
+      table.blueTable thead th {
+          font-size: 15px;
+          font-weight: bold;
+          color: #121212;
+          border-left: 2px solid #FFFFFF;
+      }
+      table.blueTable thead th:first-child {
+          border-left: none;
+      }
+
+      table.blueTable tfoot {
+          font-size: 14px;
+          font-weight: bold;
+          color: #FFFFFF;
+          background: #D0E4F5;
+          background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+          background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+          background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+          border-top: 2px solid #444444;
+      }
+      table.blueTable tfoot td {
+          font-size: 14px;
+      }
+      table.blueTable tfoot .links {
+          text-align: right;
+      }
+      table.blueTable tfoot .links a{
+          display: inline-block;
+          background: #1C6EA4;
+          color: #FFFFFF;
+          padding: 2px 8px;
+          border-radius: 5px;
+      }
     </style>
   </head>
   <body>
@@ -243,8 +300,8 @@ cursor: pointer;
         </div>
         <br/>    
               <div class="topnav">
-  <a class="active" href="index.html">Home</a>
-  <a href="/dashboard.html">Dashboard</a>
+  <a  href="index.html">Home</a>
+  <a class="active" href="/dashboard.html">Dashboard</a>
   <a href="#contact">Contact</a>
   <a href="/login">Login</a>
  <a href="/logout">Logout</a>
@@ -256,24 +313,67 @@ cursor: pointer;
 
             <hr>
 <p id = "client_name"><b>Welcome, CLIENTNAMEHERE</b></p>
-         <p> Here are the policies that you currently have with us:</p>
+            <p> Here are the policies that you currently have with us:</p>
             <br>
-            <p>Home:</p>
-            <br>
+
+            <p><b>Home:</b></p>
+
             <p id = "HomePolicyList"></p>
+
+            <table class="blueTable">
+                <thead>
+                <tr>
+                    <th>Policy Number</th>
+                    <th>Coverage Type</th>
+                    <th>Effective Date</th>
+                    <th>Expiry Date</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <td colspan="4">
+                    </td>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr>
+                    <td id ="homePolicyNumber">*</td>
+                    <td id ="homeCoverageType">*</td>
+                    <td id ="homeEffectiveDate">*</td>
+                    <td id ="homeExpiryDate">*</td>
+                </tr>
+                </tbody>
+            </table>
             <br>
-            <p id = "policyNumber"></p>
-            <br>
-            <p id = "effectiveDate"></p>
-            <br>
-            <p id = "Car Insured"></p>
-            <br>
-            <p>Auto</p>
-            <br>
-            <p id= "AutoPolicyList"></p>
-         
-                 
-         <div>
+            <p><b>Auto</b></p>
+
+            <table class="blueTable">
+                <thead>
+                <tr>
+                    <th>Policy Number</th>
+                    <th>Coverage Type</th>
+                    <th>Effective Date</th>
+                    <th>Expiry Date</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <td colspan="4">
+                    </td>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr>
+                    <td id="autoPolicyNumber">*</td>
+                    <td id="autoPolicyType">*</td>
+                    <td id ="autoEffectiveDate">*</td>
+                    <td id ="autoExpiryDate">*</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <div>
 <span id="result"></span>
         </div>
                </fieldset>
@@ -299,6 +399,42 @@ cursor: pointer;
                $("#client_name").text("Welcome, " + data.main_insured_first_name + " " + data.main_insured_last_name );
             //   alert(data);
            })
+
+              $.getJSON("http://localhost:8080/api/policy/home", function(data){
+                  $("#homePolicyNumber").text(data.policy_number);
+                  $("#homeCoverageType").text(data.policy_type);
+                  $("#homeEffectiveDate").text(data.start_date);
+                  var date = new Date(data.start_date);
+                  date.setFullYear(date.getFullYear() + 1);
+                  var month = date.getUTCMonth() + 1; //months from 1-12
+                  var day = date.getUTCDate();
+                  var year = date.getUTCFullYear();
+
+                  newdate = year + "-" + month + "-" + day;
+                  $("#homeExpiryDate").text(newdate);
+                  //   alert(data);
+              })
+
+              $.getJSON("http://localhost:8080/api/policy/auto", function(data){
+                  $("#autoPolicyNumber").text(data.policy_number);
+                  $("#autoPolicyType").text(data.policy_type);
+                  $("#autoEffectiveDate").text(data.start_date);
+                  var date = new Date(data.start_date);
+                  date.setFullYear(date.getFullYear() + 1);
+                  var month = date.getUTCMonth() + 1; //months from 1-12
+                  var day = date.getUTCDate();
+                  var year = date.getUTCFullYear();
+
+                  newdate = year + "-" + month + "-" + day;
+                  $("#autoExpiryDate").text(newdate);
+                  //   alert(data);
+              })
+
+
+
+
+
+
           });
           
           
