@@ -46,11 +46,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/login").hasRole("CLIENT")
               //  .antMatchers("/").permitAll()
+                .antMatchers("/dashboard.html").access("hasRole('CLIENT')")
+
                 .and().formLogin()
                 .defaultSuccessUrl("/dashboard.html", true)
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/index.html");
                 http.csrf().disable();
+
+
+
     }
 
      /**
