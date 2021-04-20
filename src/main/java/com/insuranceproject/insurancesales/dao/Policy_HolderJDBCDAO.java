@@ -18,7 +18,7 @@ public class Policy_HolderJDBCDAO implements DAO<Policy_Holder> {
 
     RowMapper<Policy_Holder> rowMapper = (rs, rowNum) -> {
         Policy_Holder policy_holder = new Policy_Holder();
-        policy_holder.setPolicy_holder_id(rs.getInt("policy_holder_id"));
+       // policy_holder.setPolicy_holder_id(rs.getInt("policy_holder_id"));
         policy_holder.setPolicy_number(rs.getInt("policy_number"));
         policy_holder.setClient_id(rs.getInt("client_id"));
         return policy_holder;
@@ -30,7 +30,7 @@ public class Policy_HolderJDBCDAO implements DAO<Policy_Holder> {
 
     @Override
     public List<Policy_Holder> list() {
-        String sql = "SELECT policy_holder_id, policy_number, client_id FROM policy_holder";
+        String sql = "SELECT /*policy_holder_id,*/ policy_number, client_id FROM policy_holder";
         return jdbcTemplate.query(sql,rowMapper);
     }
 
@@ -47,7 +47,7 @@ public class Policy_HolderJDBCDAO implements DAO<Policy_Holder> {
     public void createNoParam() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        System.out.println(username);
+      //  System.out.println(username);
         // String sql = "insert into policy_holder(policy_number, client_id) values (?,?)";
         String sql = "insert into policy_holder(policy_number, client_id) values ((select MAX(policy_number) from policy), (select client_id from client where username = " +  "'" + username + "'" + "))";
         jdbcTemplate.update(sql/*, policy_holder.getPolicy_number(), policy_holder.getClient_id()*/);
@@ -62,7 +62,7 @@ public class Policy_HolderJDBCDAO implements DAO<Policy_Holder> {
 
     @Override
     public Optional<Policy_Holder> get(int id) {
-        String sql = "SELECT policy_holder_id, policy_number, client_id FROM policy_holder WHERE policy_holder_id = ?";
+        String sql = "SELECT /*policy_holder_id,*/ policy_number, client_id FROM policy_holder /*WHERE policy_holder_id = ?*/";
         Policy_Holder policy_holder = null;
         try {
             policy_holder = jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);

@@ -51,7 +51,7 @@ public class Policy_Factory{
             case "Rural" -> locationRate = autoRatesTable.list().get(0).getLocation_rate_rural();
         }
 
-        /*
+
         if (vehicleAge > 10){
             vehicleAgeRate = autoRatesTable.list().get(0).getCar_11_years_or_older_rate();
         }
@@ -60,7 +60,7 @@ public class Policy_Factory{
             vehicleAgeRate = 0.25f;
         }
 
-*/
+
 
         if (accidents_last_5_years == 0){
             accidentRatingLast5Years = 1.00f;
@@ -73,10 +73,10 @@ public class Policy_Factory{
         }
 
 
-        System.out.println(basePremiumRate);
-        System.out.println(driverAgeRate);
-        System.out.println(accidentRatingLast5Years);
-        System.out.println(vehicleAgeRate);
+        System.out.println("base premium rate:" + basePremiumRate);
+        System.out.println("driver aGE RATE:" + driverAgeRate);
+        System.out.println("accidentrating last 5 years rate:" + accidentRatingLast5Years);
+        System.out.println("vehicleagerate" + vehicleAgeRate);
 
         totalPolicyCost = basePremiumRate * driverAgeRate * accidentRatingLast5Years *locationRate/* vehicleAgeRate*/;
        // System.out.println(totalPolicyCost);
@@ -149,7 +149,7 @@ public class Policy_Factory{
             dwellingTypeRate = homeRatesTable.list().get(0).getDwelling_type_bungalow_rate();
         }
 
-        else if (dwellingType.equals("Semi-attached")){
+        else if (dwellingType.equals("Semi-Attached")){
             dwellingTypeRate = homeRatesTable.list().get(0).getDwelling_type_single_attached_rate();
         }
 

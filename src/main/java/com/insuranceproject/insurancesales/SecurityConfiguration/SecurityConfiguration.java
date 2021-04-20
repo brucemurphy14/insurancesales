@@ -45,8 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/login").hasRole("CLIENT")
-              //  .antMatchers("/").permitAll()
-                .antMatchers("/dashboard.html").access("hasRole('CLIENT')")
+                .antMatchers("/").permitAll()
+                .antMatchers("/dashboard.html").authenticated()
+
 
                 .and().formLogin()
                 .defaultSuccessUrl("/dashboard.html", true)

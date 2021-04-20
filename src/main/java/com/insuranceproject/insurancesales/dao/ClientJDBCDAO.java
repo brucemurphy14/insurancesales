@@ -52,7 +52,7 @@ public class ClientJDBCDAO implements DAO<Client> {
     @Override
     public void create(Client client) {
         String nextClient = "SELECT MAX(client_id)+1 FROM CLIENT";
-        String sql = "insert into client(main_insured_first_name,main_insured_last_name,/*  home_policy_number, auto_policy_number,*/ address_id, username,client_birthday) values (?,?,(SELECT LAST_INSERT_ID()),(select username from users where user_id = (select max(user_id) from users)) ,?)";
+        String sql = "insert into client(main_insured_first_name,main_insured_last_name,/*  home_policy_number, auto_policy_number,*/ address_id, username,client_birthday) values (?,?,(SELECT MAX(address_id) from address),(select username from users where user_id = (select max(user_id) from users)) ,?)";
         jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(),/* client.getHome_policy_number(), client.getAuto_policy_number() ,*/ /*client.getAddress_id(),*/ /*client.getUsername(),*/ client.getClient_birthday());
         int nextClientKey = jdbcTemplate.queryForObject("SELECT MAX(client_id) FROM CLIENT", Integer.class);
         System.out.println(nextClientKey);
@@ -106,8 +106,8 @@ public class ClientJDBCDAO implements DAO<Client> {
 
     @Override
     public void update(Client client, int ID) {
-        String sql = "update client set main_insured_first_name =  ?,main_insured_last_name = ?, home_policy_number = ?, auto_policy_number = ?,address_id = ? , username = ?, client_birthday = ? WHERE client_id = ?";
-        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(), client.getHome_policy_number(), client.getAuto_policy_number(), client.getAddress_id(),client.getUsername(), client.getClient_birthday());
+        String sql = "update client set main_insured_first_name =  ?,main_insured_last_name = ?, client_birthday = ? WHERE client_id = " + ID;
+        jdbcTemplate.update(sql,client.getMain_insured_first_name(),client.getMain_insured_last_name(),client.getClient_birthday());
     }
 
     @Override

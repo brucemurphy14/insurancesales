@@ -33,7 +33,7 @@ public class DriverRiskFactorsJDBCDAO implements DAO<DriverRiskFactors> {
     @Override
     public List<DriverRiskFactors> list() {
         String sql = """
-                select location_type, TIMESTAMPDIFF (YEAR, CLIENT_Birthday, CURDATE() ) as client_age , vehicle_year,  (
+                select location_type, TIMESTAMPDIFF (YEAR, client_birthday, CURDATE() ) as client_age , vehicle_year,  (
                 select
         COUNT(AT_FAULT)
         from
