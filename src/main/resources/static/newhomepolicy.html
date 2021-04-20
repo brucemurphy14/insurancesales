@@ -287,6 +287,8 @@ cursor: pointer;
               ﻿/*
     Common 
 */
+        
+  
 
 .wizard,
 .tabcontrol
@@ -338,6 +340,8 @@ cursor: pointer;
     Wizard
 */
 
+
+            
 .wizard > .steps
 {
     position: relative;
@@ -715,6 +719,7 @@ fieldset {
 
 textarea {
     resize: vertical;
+   
 }
 
 /* ==========================================================================
@@ -810,6 +815,8 @@ textarea {
     width: auto;
 }
 
+
+
 /*
  * Hide visually and from screenreaders, but maintain layout
  */
@@ -847,6 +854,7 @@ textarea {
 
 .clearfix {
     *zoom: 1;
+  //  height: 400px;
 }
 
 /* ==========================================================================
@@ -937,7 +945,8 @@ textarea {
         page-break-after: avoid;
     }
 }
-        
+
+
         
     </style>
   </head>
@@ -979,110 +988,15 @@ textarea {
   <a href="#contact">Contact</a>
   <a href="/login">Login</a>
  <a href="/logout">Logout</a>
-          
-
-          
-
+    
           </div>
-          
-          
           <br>     
         <fieldset id = "wizard"> 
           <legend></legend>
-            
-            
-            <!--
-            <p><b>User Account</b></p>
-          <div class="item">
-            <label for="username"> User Name<span>*</span></label>
-            <input id="username" type="text" name="username" />
-          </div>
-          <div class="item">
-            <label for="password">Password<span>*</span></label>
-            <input id="password" type="text" name="password" />
-          </div>
--->
-            <div id="wizard"> 
-           <h3>Address</h3>
-              <section>
 
-            <label for="street_address"> Street Address:<span>*</span></label>
-            <input id="streetAddress" type="text" name="street_address" />
-                
-            <label for="province">Province<span>*</span></label>
-            <input id="province" type="text" name="province" />
-          
-          
-            <label for="city">City<span>*</span></label>
-            <input id="city" type="text" name="city" />
-         
-           
-             <label for="zip_code">ZIP Code<span>*</span></label>
-            <input id="zip_code" type="text" name="zip_code"/>
-        
-          <label>What type of area is this?<span>*</span></label>
-           <select id = "locationType">
-              <option selected value="" disabled selected></option>
-                  <option value="Dense Urban" >Dense Urban</option>
-                  <option value="Urban">Urban</option>
-                  <option value="Rural">Rural</option>
-              </select>
-            
-                  </section>
-                
-               
-            
-            <h3>Client Info</h3>
-          <section>
-            <label for="first_name"> First name<span>*</span></label>
-            <input id="first_name" type="text" name="first_name" />
-          
-          
-            <label for="last_name">last name<span>*</span></label>
-            <input id="last_name" type="text" name="last_name" />
-          
-         
-            <label for="birthday">Birthday<span>*</span></label>
-            <input id="birthday" type="text" name="birthday" />
-          
-              </section>
-                <!--
-                  <h3>Policy Type</h3>
-                <section> 
-           <select id = "policyType">
-               <option value="Auto">Auto</option>
-               <option value="Home">Home</option>
-              </select>
-                </section>
-                              
-                       <h3>Accident Listing</h3>
-<section>            
-    <label for="accident_date"> Accident date<span>*</span></label>
-            <input id="accident_date" type="text" name="accident_date" />
-            <label for="atFault">Were you at fault for this accident?<span>*</span></label>
-            <input id="atFault" type="text" name="atFault" />
-              </section>            
-                                          
-              
-                
+<div>
 
-                      <h3>Vehicle Details</h3>
-                    <section> 
-          <div class="item">
-            <label for="vehicle_make"> Vehicle Make<span>*</span></label>
-            <input id="vehicle_make" type="text" name="vehicle_make" />
-          </div>
-          <div class="item">
-            <label for="vehicleModel">Vehicle Model<span>*</span></label>
-            <input id="vehicleModel" type="text" name="vehicleModel" />
-          </div>
-               <div class="item">
-            <label for="vehicleYear">Vehicle Year<span>*</span></label>
-            <input id="vehicleYear" type="text" name="vehicleYear" />
-          </div>
-                            </section>
 
-            
               
                       <h3>Home Details</h3>
                         <section> 
@@ -1090,14 +1004,12 @@ textarea {
             <input id="homeYear" type="text" name="homeYear" />
             <label for="typeOfDwelling"> What type of house is it?<span>*</span></label>
              <select id = "typeOfDwelling">
-              <option selected value="" disabled selected></option>
                   <option value="Semi-Attached" >Semi-Attached</option>
                   <option value="Apartment">Apartment</option>
                 <option value="Bungalow">Bungalow</option>
                 <option value="SingleDwelling">Single Dwelling</option>
               </select>
             <label for="heatingType"> What type of Heating does it have?<span>*</span></label>
-
              <select id = "heatingType">
               <option selected value="" disabled selected></option>
                   <option value="Electric" >Electric</option>
@@ -1107,8 +1019,17 @@ textarea {
                 <option value="Other">Other</option>
               </select>
                       </section>   
-            -->
-              </div> 
+            
+              </div>
+
+            <div id = "policyTypeHide" style="display: none;">
+            <h3 id = "homePolicy">Policy Type</h3>
+
+                <select id = "policyType">
+                    <option selected value="Home" >Home</option>
+                </select>
+
+                </div>
 
      
      
@@ -1122,21 +1043,6 @@ textarea {
 -->
               </fieldset> 
         <br/>
-          
-          
-          
-          
-          
-          
-          
-
-
-          
-          
-     
-        <div class="btn-block">
-          <button type="submit" href="/">Submit</button>
-        </div>
       </form>
         
     </div>
@@ -1173,33 +1079,27 @@ form.children("div").steps({
     },
     onFinished: function (event, currentIndex)
     {
-       var policyType= $('#policyType').val();
-
-        fire_ajax_submit_address();
-        fire_ajax_submit_client();
+        fire_ajax_policy_type();
+        fire_ajax_submit_home();
+        fire_ajax_home_policy();
+        fire_ajax_policy_holder();
         window.location.href = "/dashboard.html";
 
-        // fire_ajax_policy_type();
-       // if (policyType == 'Auto') {
-        //    fire_ajax_submit_accident_listing();
-
-       //     fire_ajax_submit_car();
-        //    fire_ajax_car_policy();
-      //  }
-
-      //  else if (policyType == 'Home'){
-      //      fire_ajax_submit_home();
-      //      fire_ajax_home_policy();
-      //  }
-
-
-     //    fire_ajax_policy_holder();
     }
 });
 
           
           
             $(document).ready(function() {
+                
+             
+             
+                
+                
+                
+                
+                
+                
                 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -1286,7 +1186,7 @@ window.onclick = function(event) {
     var province = $("#province").val();
     var city = $("#city").val();
     var zip_code = $("#zip_code").val();
-    var locationType = $("#locationType option:selected").text();
+    var locationType = $("#locationType").val();
               var addressData = {
                   street_address: streetAddress,
                   province: province,
@@ -1337,7 +1237,7 @@ window.onclick = function(event) {
               var clientData = {
                   main_insured_first_name: first_name,
                   main_insured_last_name: last_name,
-                  client_birthday: birthday,
+                  client_birthday: birthday
               }
        
     var jsonClientData = JSON.stringify(clientData);
@@ -1375,11 +1275,11 @@ window.onclick = function(event) {
           
           function fire_ajax_submit_accident_listing(){
               
-              var accidentDate = $("#accident_date").val();
+              var accidentData = $("#accident_date").val();
     var atFault = $("#atFault").val();
               var accidentData = {
-                  accident_date: accidentDate,
-                  at_fault: atFault,
+                  accident_date: accidentData,
+                  at_fault: atFault
               }
        
     var jsonaccidentData = JSON.stringify(accidentData);
@@ -1434,10 +1334,10 @@ window.onclick = function(event) {
         timeout: 600000,
         success: function (data) { 
             console.log(data);          
+            $("#result1").text(data);
         },
         error: function (e) {
-
-
+            
             //  console.log( e );
 
 
@@ -1453,7 +1353,7 @@ window.onclick = function(event) {
           }
                 function fire_ajax_submit_car(){
               
-              var vehicle_make = $("#vehicle_make").val();
+              var vehicle_make = $("#vehicleMake").val();
               var vehicle_model = $("#vehicleModel").val();
               var vehicle_year = $("#vehicleYear").val();
 
@@ -1495,10 +1395,9 @@ window.onclick = function(event) {
           }
            function fire_ajax_submit_home(){
 
-
               var date_built = $("#homeYear").val();
-              var type_of_dwelling = $("#typeOfDwelling option:selected").text().trim();
-              var heating_type = $("#heatingType option:selected").text().trim();
+              var type_of_dwelling = $("#typeOfDwelling").val();
+              var heating_type = $("#heatingType").val();
               var homeData = {
                   date_built: date_built,
                   type_of_dwelling: type_of_dwelling,
@@ -1577,5 +1476,3 @@ function fire_ajax_policy_holder(){
             
             
       </script>
-  
-       

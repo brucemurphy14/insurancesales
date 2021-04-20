@@ -287,6 +287,8 @@ cursor: pointer;
               ﻿/*
     Common 
 */
+        
+  
 
 .wizard,
 .tabcontrol
@@ -338,6 +340,8 @@ cursor: pointer;
     Wizard
 */
 
+
+            
 .wizard > .steps
 {
     position: relative;
@@ -715,6 +719,7 @@ fieldset {
 
 textarea {
     resize: vertical;
+   
 }
 
 /* ==========================================================================
@@ -847,6 +852,7 @@ textarea {
 
 .clearfix {
     *zoom: 1;
+  //  height: 400px;
 }
 
 /* ==========================================================================
@@ -979,18 +985,11 @@ textarea {
   <a href="#contact">Contact</a>
   <a href="/login">Login</a>
  <a href="/logout">Logout</a>
-          
-
-          
-
+    
           </div>
-          
-          
           <br>     
         <fieldset id = "wizard"> 
           <legend></legend>
-            
-            
             <!--
             <p><b>User Account</b></p>
           <div class="item">
@@ -1002,7 +1001,9 @@ textarea {
             <input id="password" type="text" name="password" />
           </div>
 -->
-            <div id="wizard"> 
+            
+            <!--
+            <div > 
            <h3>Address</h3>
               <section>
 
@@ -1046,14 +1047,10 @@ textarea {
             <input id="birthday" type="text" name="birthday" />
           
               </section>
-                <!--
-                  <h3>Policy Type</h3>
-                <section> 
-           <select id = "policyType">
-               <option value="Auto">Auto</option>
-               <option value="Home">Home</option>
-              </select>
-                </section>
+
+-->
+            <div>  
+
                               
                        <h3>Accident Listing</h3>
 <section>            
@@ -1083,7 +1080,7 @@ textarea {
                             </section>
 
             
-              
+              <!--
                       <h3>Home Details</h3>
                         <section> 
             <label for="homeYear"> Date house was built<span>*</span></label>
@@ -1119,7 +1116,17 @@ textarea {
 <span id="result"></span>
           <button type="calc" id="calc1"  onclick="fire_ajax_submit_address()">Calculate</button> 
         </div>
+
 -->
+
+            <div id = "policyTypeHide" style="display: none;">
+                <h3 id = "autoPolicy">Policy Type</h3>
+
+                <select id = "policyType">
+                    <option selected value="Auto" >Auto</option>
+                </select>
+
+            </div>
               </fieldset> 
         <br/>
           
@@ -1173,33 +1180,28 @@ form.children("div").steps({
     },
     onFinished: function (event, currentIndex)
     {
-       var policyType= $('#policyType').val();
-
-        fire_ajax_submit_address();
-        fire_ajax_submit_client();
+        fire_ajax_policy_type();
+        fire_ajax_submit_accident_listing();
+        fire_ajax_submit_car();
+        fire_ajax_car_policy();
+        fire_ajax_policy_holder();
         window.location.href = "/dashboard.html";
 
-        // fire_ajax_policy_type();
-       // if (policyType == 'Auto') {
-        //    fire_ajax_submit_accident_listing();
-
-       //     fire_ajax_submit_car();
-        //    fire_ajax_car_policy();
-      //  }
-
-      //  else if (policyType == 'Home'){
-      //      fire_ajax_submit_home();
-      //      fire_ajax_home_policy();
-      //  }
-
-
-     //    fire_ajax_policy_holder();
     }
 });
 
           
           
             $(document).ready(function() {
+                
+             
+             
+                
+                
+                
+                
+                
+                
                 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -1286,7 +1288,7 @@ window.onclick = function(event) {
     var province = $("#province").val();
     var city = $("#city").val();
     var zip_code = $("#zip_code").val();
-    var locationType = $("#locationType option:selected").text();
+    var locationType = $("#locationType").val();
               var addressData = {
                   street_address: streetAddress,
                   province: province,
@@ -1337,7 +1339,7 @@ window.onclick = function(event) {
               var clientData = {
                   main_insured_first_name: first_name,
                   main_insured_last_name: last_name,
-                  client_birthday: birthday,
+                  client_borthday: birthday,
               }
        
     var jsonClientData = JSON.stringify(clientData);
@@ -1375,11 +1377,11 @@ window.onclick = function(event) {
           
           function fire_ajax_submit_accident_listing(){
               
-              var accidentDate = $("#accident_date").val();
+              var accidentData = $("#accident_date").val();
     var atFault = $("#atFault").val();
               var accidentData = {
-                  accident_date: accidentDate,
-                  at_fault: atFault,
+                  accident_date: accidentData,
+                  at_fault: atFault
               }
        
     var jsonaccidentData = JSON.stringify(accidentData);
@@ -1434,10 +1436,10 @@ window.onclick = function(event) {
         timeout: 600000,
         success: function (data) { 
             console.log(data);          
+            $("#result1").text(data);
         },
         error: function (e) {
-
-
+            
             //  console.log( e );
 
 
@@ -1453,7 +1455,7 @@ window.onclick = function(event) {
           }
                 function fire_ajax_submit_car(){
               
-              var vehicle_make = $("#vehicle_make").val();
+              var vehicle_make = $("#vehicleMake").val();
               var vehicle_model = $("#vehicleModel").val();
               var vehicle_year = $("#vehicleYear").val();
 
@@ -1495,10 +1497,9 @@ window.onclick = function(event) {
           }
            function fire_ajax_submit_home(){
 
-
-              var date_built = $("#homeYear").val();
-              var type_of_dwelling = $("#typeOfDwelling option:selected").text().trim();
-              var heating_type = $("#heatingType option:selected").text().trim();
+              var date_built = $("#date_built").val();
+              var type_of_dwelling = $("#type_of_dwelling").val();
+              var heating_type = $("#heating_type").val();
               var homeData = {
                   date_built: date_built,
                   type_of_dwelling: type_of_dwelling,
@@ -1577,5 +1578,3 @@ function fire_ajax_policy_holder(){
             
             
       </script>
-  
-       

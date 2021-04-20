@@ -307,8 +307,12 @@ cursor: pointer;
  <a href="/logout">Logout</a>
 
               </div>
-          <br>     
-        <fieldset>
+          <br>
+          <input id="inp3" type="button" value="ClientInformation" onclick="location.href='newpolicy.html';" />
+          <input id="inp" type="button" value="New Home Policy" onclick="location.href='newhomepolicy.html';" />
+          <input id="inp2" type="button" value="New Auto Policy" onclick="location.href='newautopolicy.html';" />
+
+          <fieldset>
           <legend>Dashboard</legend>
 
             <hr>
@@ -316,7 +320,7 @@ cursor: pointer;
             <p> Here are the policies that you currently have with us:</p>
             <br>
 
-            <p><b>Home:</b></p>
+            <p><b>Home</b></p>
 
             <p id = "HomePolicyList"></p>
 
@@ -327,6 +331,8 @@ cursor: pointer;
                     <th>Coverage Type</th>
                     <th>Effective Date</th>
                     <th>Expiry Date</th>
+                    <th>Estimated Premium</th>
+
                 </tr>
                 </thead>
                 <tfoot>
@@ -341,6 +347,8 @@ cursor: pointer;
                     <td id ="homeCoverageType">*</td>
                     <td id ="homeEffectiveDate">*</td>
                     <td id ="homeExpiryDate">*</td>
+                    <td id ="calculatedPremiumHome">*</td>
+
                 </tr>
                 </tbody>
             </table>
@@ -354,6 +362,8 @@ cursor: pointer;
                     <th>Coverage Type</th>
                     <th>Effective Date</th>
                     <th>Expiry Date</th>
+                    <th>Estimated Premium</th>
+
                 </tr>
                 </thead>
                 <tfoot>
@@ -368,6 +378,8 @@ cursor: pointer;
                     <td id="autoPolicyType">*</td>
                     <td id ="autoEffectiveDate">*</td>
                     <td id ="autoExpiryDate">*</td>
+                    <td id ="calculatedPremium">*</td>
+
                 </tr>
                 </tbody>
             </table>
@@ -377,6 +389,8 @@ cursor: pointer;
 <span id="result"></span>
         </div>
                </fieldset>
+
+
         <br/>
      
       </form>
@@ -412,6 +426,7 @@ cursor: pointer;
 
                   newdate = year + "-" + month + "-" + day;
                   $("#homeExpiryDate").text(newdate);
+                  $("#calculatedPremiumHome").text(data.term_price);
                   //   alert(data);
               })
 
@@ -419,6 +434,8 @@ cursor: pointer;
                   $("#autoPolicyNumber").text(data.policy_number);
                   $("#autoPolicyType").text(data.policy_type);
                   $("#autoEffectiveDate").text(data.start_date);
+                  $("#calculatedPremium").text(data.term_price);
+
                   var date = new Date(data.start_date);
                   date.setFullYear(date.getFullYear() + 1);
                   var month = date.getUTCMonth() + 1; //months from 1-12

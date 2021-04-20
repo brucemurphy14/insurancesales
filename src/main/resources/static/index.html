@@ -49,8 +49,10 @@
       .banner {
       position: relative;
       height: 300px;
-      background-image: url("/uploads/media/default/0001/02/e2502bb5e1dab7d5cc9b011c745033821aad632c.jpeg");  
-      background-size: cover;
+          background-image: url("images/Taylor.png");
+      // background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -232,14 +234,15 @@ cursor: pointer;
 .topnav a.active {
   background-color: #4CAF50;
   color: white;
-}        
+}
+
     </style>
   </head>
   <body>
     <div class="testbox">
       <form>
         <div class="banner">
-          <h1>Insurance Policy API Test Page</h1>
+
         </div>
         <br/>    
               <div class="topnav">
@@ -249,8 +252,10 @@ cursor: pointer;
   <a href="/login">Login</a>
   <a href="/logout">Logout</a>
               </div>
-          <br>     
-        <fieldset>
+          <br>
+
+
+          <fieldset>
           <legend></legend>
 <p><b>Auto insurance</b></p>
           <div class="item">
@@ -280,10 +285,13 @@ cursor: pointer;
                   <option value="Rural">Rural</option>
               </select>
           </div>
+            <br>
             <div>
-            <span id="result1"></span>
           <button type="calc" id="calc"  onclick="fire_ajax_submit_car()">Calculate</button>
-        </div>
+                <br>
+                <span id="result1"></span>
+
+            </div>
  
             <hr>
 <p><b>Home Insurance</b></p>
@@ -314,17 +322,13 @@ cursor: pointer;
                   <option value="Other">Other</option>
               </select>
           </div>
-                 
+                 <br>
          <div>
 <span id="result"></span>
           <button type="calc" id="calc1"  onclick="fire_ajax_submit_home()">Calculate</button> 
         </div>
                </fieldset>
         <br/>
-     
-        <div class="btn-block">
-          <button type="submit" href="/">Submit</button>
-        </div>
       </form>
     </div>
         
@@ -353,13 +357,11 @@ function fire_ajax_submit_car() {
     var carGaragedArea = $("#carGaragedArea").val();
        
     var carData = {
-        
             driverAge: driverAge,
             vehicleAge: vehicleAge,
             accidentCount:accidents_last_5_years,
             vehicleWorth:insuredCarWorth,
             location_type:carGaragedArea
-        
         }
     
     var jsonCarData = JSON.stringify(carData);
@@ -375,7 +377,7 @@ function fire_ajax_submit_car() {
         timeout: 600000,
         success: function (data) { 
             console.log(data);          
-            $("#result1").text(data.calculatedPremium);
+            $("#result1").text("You would pay: " + data.calculatedPremium);
         },
         error: function (e) {
             
