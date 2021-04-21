@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Camp Registration</title>
+    <title>Taylor Insurance - Dashboard</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -28,6 +28,22 @@
       z-index: 2;
  line-height: 83px;
       }
+	  
+	  
+	  .buttons{
+	  border:1px solid #fff;
+	  padding: 10px 30px;
+	  color: #fff;
+	  text-decoration: none;
+	  transition: 0.6s ease;
+	  }
+	  
+	  .buttons:hover{
+	  background-color: #fff;
+	  color: #000;
+	  }
+	  
+	  
       textarea {
       width: calc(100% - 12px);
       padding: 5px;
@@ -177,19 +193,21 @@
       margin-top: 10px;
       text-align: center;
       }
+	  
       button {
       width: 150px;
       padding: 10px;
       border: none;
       border-radius: 5px; 
       background:  #006622;
-      font-size: 16px;
+      font-size: 60px;
       color: #fff;
-cursor: pointer;
+	  cursor: pointer;
       }
       button:hover {
       background:  #00b33c;
       }
+	  
       @media (min-width: 568px) {
       .name-item, .city-item {
       display: flex;
@@ -308,10 +326,11 @@ cursor: pointer;
 
               </div>
           <br>
+		  <div class="buttons">
           <input id="inp3" type="button" value="ClientInformation" onclick="location.href='newpolicy.html';" />
           <input id="inp" type="button" value="New Home Policy" onclick="location.href='newhomepolicy.html';" />
           <input id="inp2" type="button" value="New Auto Policy" onclick="location.href='newautopolicy.html';" />
-
+			</div>
           <fieldset>
           <legend>Dashboard</legend>
 
